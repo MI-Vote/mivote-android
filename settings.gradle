@@ -1,2 +1,3 @@
 rootProject.name = "MI Vote"
 include ':app'
+include ':michiganelections_api'
