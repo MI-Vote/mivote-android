@@ -1,0 +1,2 @@
+rootProject.name = "MI Vote"
+include ':app'
