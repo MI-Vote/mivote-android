@@ -1,5 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext.buildConfig = [
+        'compileSdk': 30,
+        'buildToolsVersion': "30.0.2",
+        'javaSourceVersion': JavaVersion.VERSION_1_8,
+        'minSdk': 21,
+        'targetSdk': 30,
+        'version': [
+            'code': 1,
+            'major': 0,
+            'minor': 0,
+            'patch': 1,
+        ]
+    ]
+    ext.buildConfig.version['name'] = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
+
     ext {
         compose_version = '1.0.0-alpha03'
     }
@@ -14,6 +29,52 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+    }
+}
+
+plugins {
+    // Variables can't be used in 'plugins' block,
+    // so duplication of detekt version string is unavoidable in Gradle Groovy DSL for now.
+    // Others experiencing it:  https://github.com/gradle/gradle/issues/3593
+    // Mozilla decided to live with the duplication:  https://github.com/mozilla-mobile/focus-android/issues/1886
+    // Possible solution that requires changing to Gradle Kotlin DSL:  https://github.com/gradle/gradle/issues/1697
+    id "io.gitlab.arturbosch.detekt" version "1.1.1"
+    id 'com.adarshr.test-logger' version '1.7.0'
+}
+
+subprojects {
+    //<editor-fold desc="detekt">
+    def detektVersion = "1.1.1"
+
+    apply plugin: 'io.gitlab.arturbosch.detekt'
+
+    detekt {
+        toolVersion = detektVersion
+        config = files("$rootProject.projectDir/detekt-config.yml")
+        baseline = file("$rootProject.projectDir/detekt-baseline.xml")
+
+        reports {
+            html {
+                enabled = true
+                destination = file("$project.buildDir/reports/detekt.html")
+            }
+            xml {
+                enabled = false
+            }
+        }
+    }
+
+    // enable formatting rules
+    dependencies {
+        detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
+    }
+    //</editor-fold>
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            allWarningsAsErrors = true
+            jvmTarget = buildConfig.javaSourceVersion
+        }
     }
 }
 
