@@ -1,0 +1,3 @@
+[submodule ".idea"]
+	path = .idea
+	url = https://github.com/MichiganLabs/dot-idea.git
