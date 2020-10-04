@@ -4,27 +4,26 @@ buildscript {
         'compileSdk': 30,
         'buildToolsVersion': "30.0.2",
         'javaSourceVersion': JavaVersion.VERSION_1_8,
-        'minSdk': 21,
+        'minSdk': 24,
         'targetSdk': 30,
         'version': [
             'code': 1,
             'major': 0,
             'minor': 0,
-            'patch': 1,
         ]
     ]
-    ext.buildConfig.version['name'] = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
+    ext.buildConfig.version['name'] = "${buildConfig.version.major}.${buildConfig.version.minor}"
 
     ext {
-        compose_version = '1.0.0-alpha03'
+        compose_version = '1.0.0-alpha04'
     }
-    ext.kotlin_version = "1.4.0"
+    ext.kotlin_version = "1.4.10"
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.0-alpha12"
+        classpath "com.android.tools.build:gradle:4.2.0-alpha13"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -72,7 +71,7 @@ subprojects {
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         kotlinOptions {
-            allWarningsAsErrors = true
+//            allWarningsAsErrors = true
             jvmTarget = buildConfig.javaSourceVersion
         }
     }
