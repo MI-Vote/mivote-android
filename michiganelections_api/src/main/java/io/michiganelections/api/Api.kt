@@ -22,14 +22,25 @@ object Api {
     ): VoterRegistration
   }
 
-  class Service(retrofit: Retrofit) {
+  interface Service {
+    suspend fun getElections(): ResultPage<Election>
+
+    suspend fun getVoter(
+      firstName: String,
+      lastName: String,
+      birthDate: LocalDate,
+      zipcode: String
+    ): VoterRegistration
+  }
+
+  class ServiceImpl(retrofit: Retrofit) : Service {
     private val endpoint = retrofit.create(Endpoint::class.java)
 
-    suspend fun getElections(): ResultPage<Election> {
+    override suspend fun getElections(): ResultPage<Election> {
       return endpoint.elections()
     }
 
-    suspend fun getVoter(
+    override suspend fun getVoter(
       firstName: String,
       lastName: String,
       birthDate: LocalDate,
