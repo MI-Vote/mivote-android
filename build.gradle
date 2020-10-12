@@ -15,7 +15,7 @@ buildscript {
     ext.buildConfig.version['name'] = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
 
     ext {
-        compose_version = '1.0.0-alpha03'
+        compose_version = '1.0.0-alpha04'
         hilt_version = '2.28-alpha'
     }
     ext.kotlin_version = "1.4.0"
@@ -24,7 +24,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.2.0-alpha12"
+        classpath "com.android.tools.build:gradle:4.2.0-alpha13"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.28-alpha'
     }
@@ -70,7 +70,7 @@ subprojects {
 
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         kotlinOptions {
-            allWarningsAsErrors = true
+//            allWarningsAsErrors = true
             jvmTarget = buildConfig.javaSourceVersion
         }
     }

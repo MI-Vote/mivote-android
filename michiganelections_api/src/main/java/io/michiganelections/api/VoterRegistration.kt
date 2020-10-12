@@ -11,7 +11,7 @@ data class VoterRegistration(
   val absenteeBallotRecieved: String?, //date
   val pollingLocation: List<String>?,
   val dropboxLocation: List<String>?,
-  val recentlyMoved: Boolean,
+  val recentlyMoved: Boolean?,
   val precinct: Precinct?,
   val districts: List<District>?
 )
