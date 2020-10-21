@@ -5,6 +5,8 @@ import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
@@ -12,11 +14,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.MutableLiveData
 import androidx.ui.tooling.preview.Preview
 import com.fueledbycaffeine.mivote.R
-import com.fueledbycaffeine.mivote.ui.MIVoteTheme
 import com.fueledbycaffeine.mivote.ui.NavDrawer
 import com.fueledbycaffeine.mivote.ui.Screen
 import io.michiganelections.api.VoterRegistration
-import timber.log.Timber
 
 @Composable
 fun BallotStatusScreen(
@@ -25,7 +25,7 @@ fun BallotStatusScreen(
     scaffoldState: ScaffoldState = rememberScaffoldState()
 ) {
    BallotStatus(
-       registrationInfo = ballotStatusViewModel.registrationLiveData.value,
+       registrationState = ballotStatusViewModel.registrationLiveData.observeAsState(),
        navigateTo = navigateTo,
        scaffoldState = scaffoldState
    )
@@ -33,7 +33,7 @@ fun BallotStatusScreen(
 
 @Composable
 fun BallotStatus(
-    registrationInfo: VoterRegistration?,
+    registrationState: State<VoterRegistration?>,
     navigateTo: (Screen) -> Unit,
     scaffoldState: ScaffoldState
 ) {
@@ -59,21 +59,27 @@ fun BallotStatus(
         },
         bodyContent = { innerPadding ->
             val modifier = Modifier.padding(innerPadding)
-            Timber.d(registrationInfo.toString())
             ConstraintLayout (modifier = Modifier.padding(12.dp)) {
                 Spacer(modifier = modifier)
-                if (registrationInfo == null) {
-                    Loading()
-                } else if (registrationInfo.absenteeBallotRecieved != null) {
-                    BallotReceived()
-                } else if (registrationInfo.absenteeBallotSent != null) {
-                    BallotSent()
-                } else if (registrationInfo.absenteeApplicationReceived != null) {
-                    BallotApplicationReceived()
-                } else if (registrationInfo.absentee) {
-                    BallotAbsentee()
-                } else {
-                    BallotNotAbsentee()
+                when {
+                    registrationState.value == null -> {
+                        Loading()
+                    }
+                    registrationState.value!!.absenteeBallotRecieved != null -> {
+                        BallotReceived()
+                    }
+                    registrationState.value!!.absenteeBallotSent != null -> {
+                        BallotSent()
+                    }
+                    registrationState.value!!.absenteeApplicationReceived != null -> {
+                        BallotApplicationReceived()
+                    }
+                    registrationState.value!!.absentee -> {
+                        BallotAbsentee()
+                    }
+                    else -> {
+                        BallotNotAbsentee()
+                    }
                 }
 
             }
