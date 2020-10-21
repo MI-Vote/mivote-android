@@ -10,11 +10,16 @@ import androidx.compose.ui.platform.setContent
 import androidx.lifecycle.lifecycleScope
 import androidx.ui.tooling.preview.Preview
 import com.fueledbycaffeine.mivote.data.VoterInfo
+import com.fueledbycaffeine.mivote.ui.AppContainer
 import com.fueledbycaffeine.mivote.ui.MIVoteTheme
+import com.fueledbycaffeine.mivote.ui.NavigationViewModel
+import com.fueledbycaffeine.mivote.ui.voter.BallotStatusScreen
+import com.fueledbycaffeine.mivote.ui.voter.BallotStatusViewModel
 import com.fueledbycaffeine.mivote.ui.voter.VoterRegistrationStatusScreen
 import com.fueledbycaffeine.mivote.ui.voter.VoterRegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.time.LocalDate
 
 @AndroidEntryPoint
@@ -29,6 +34,7 @@ class MainActivity : AppCompatActivity() {
   )
 
   private val voterRegistrationViewModel by viewModels<VoterRegistrationViewModel>()
+  private val navigationViewModel by viewModels<NavigationViewModel>()
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -39,12 +45,10 @@ class MainActivity : AppCompatActivity() {
 
     setContent {
       MIVoteTheme {
-        Surface {
-          VoterRegistrationStatusScreen(
-            voterInfo = voterInfo,
-            registrationViewModel = voterRegistrationViewModel
-          )
-        }
+        AppContainer(
+          navigationViewModel = navigationViewModel,
+          registrationData = voterRegistrationViewModel.registrationLiveData
+        )
       }
     }
   }
