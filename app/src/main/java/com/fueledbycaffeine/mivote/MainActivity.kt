@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
-import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
 import androidx.lifecycle.lifecycleScope
@@ -13,13 +12,9 @@ import com.fueledbycaffeine.mivote.data.VoterInfo
 import com.fueledbycaffeine.mivote.ui.AppContainer
 import com.fueledbycaffeine.mivote.ui.MIVoteTheme
 import com.fueledbycaffeine.mivote.ui.NavigationViewModel
-import com.fueledbycaffeine.mivote.ui.voter.BallotStatusScreen
-import com.fueledbycaffeine.mivote.ui.voter.BallotStatusViewModel
-import com.fueledbycaffeine.mivote.ui.voter.VoterRegistrationStatusScreen
 import com.fueledbycaffeine.mivote.ui.voter.VoterRegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.time.LocalDate
 
 @AndroidEntryPoint

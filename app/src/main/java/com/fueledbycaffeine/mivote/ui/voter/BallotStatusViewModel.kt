@@ -5,7 +5,5 @@ import androidx.lifecycle.ViewModel
 import io.michiganelections.api.VoterRegistration
 
 class BallotStatusViewModel constructor(
-        val registrationLiveData: LiveData<VoterRegistration>
-) : ViewModel() {
-
-}
+  val registrationLiveData: LiveData<VoterRegistration>
+) : ViewModel()
