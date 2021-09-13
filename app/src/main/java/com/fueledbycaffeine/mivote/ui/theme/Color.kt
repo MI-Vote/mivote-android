@@ -1,4 +1,4 @@
-package com.fueledbycaffeine.mivote.ui
+package com.fueledbycaffeine.mivote.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

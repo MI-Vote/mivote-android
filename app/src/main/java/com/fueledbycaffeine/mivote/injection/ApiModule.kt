@@ -4,7 +4,7 @@ import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.components.SingletonComponent
 import io.michiganelections.api.Api
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,7 +13,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
 
 @Module
-@InstallIn(ActivityComponent::class)
+@InstallIn(SingletonComponent::class)
 class ApiModule {
 
   @Provides
@@ -38,6 +38,7 @@ class ApiModule {
 
   @Provides
   fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
+    Timber.d("$moshi")
     return Retrofit.Builder()
       .baseUrl("https://michiganelections.io/api/")
       .client(okHttpClient)
