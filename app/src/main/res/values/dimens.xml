@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="standard_padding">48dp</dimen>
+    <dimen name="loading_indicator_top_margin">16dp</dimen>
+
+    <!-- Margin -->
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+</resources>
