@@ -18,7 +18,7 @@ buildscript {
         compose_navigation_version = "2.4.0-alpha04"
         core_ktx_version = "1.6.0"
         detekt_version = '1.15.0-RC1'
-        kotlin_version = '1.5.10'
+        kotlin_version = '1.5.21'
         kotlin_coroutines_version = '1.5.1'
         hilt_version = "2.36"
         lifecycle_version = "2.3.1"
