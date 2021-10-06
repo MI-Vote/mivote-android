@@ -1,53 +1,105 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.buildConfig = [
-        'compileSdk': 30,
-        'javaSourceVersion': JavaVersion.VERSION_1_8,
-        'minSdk': 21,
-        'targetSdk': 30,
-        'version': [
-            'code': 1,
-            'major': 0,
-            'minor': 0,
-            'patch': 1,
-        ]
-    ]
-    ext.buildConfig.version['name'] = "${buildConfig.version.major}.${buildConfig.version.minor}.${buildConfig.version.patch}"
 
     ext {
-        compose_version = '1.0.0-alpha04'
-        hilt_version = '2.28-alpha'
+        compile_sdk = 30
+        javaSourceVersion = JavaVersion.VERSION_1_8
+        min_sdk = 21
+        target_sdk = 30
+        version_code = 1
+        version_major = 0
+        version_minor = 0
+        version_patch = 1
+        version_name = "$version_major.$version_minor.$version_patch"
+
+        activity_compose_version = "1.3.0-rc02"
+        app_compat_version = "1.3.0"
+        compose_version = '1.0.2'
+        compose_navigation_version = "2.4.0-alpha04"
+        core_ktx_version = "1.6.0"
+        detekt_version = '1.15.0-RC1'
+        kotlin_version = '1.5.21'
+        kotlin_coroutines_version = '1.5.1'
+        hilt_version = "2.36"
+        lifecycle_version = "2.3.1"
+        lottie_version = "1.0.0-beta07-1"
+        material_version = "1.4.0"
+        mockk_version = "1.12.0"
+        moshi_version = '1.12.0'
+        okhttp_version = '4.9.0'
+        retrofit_version = '2.9.0'
+        room_version = "2.3.0"
+        timber_version = "4.7.1"
+
+        deps = [
+            'androidX': [
+                'compose': [
+                    'activity': "androidx.activity:activity-compose:$activity_compose_version",
+                    'material': "androidx.compose.material:material:$compose_version",
+                    'navigation': "androidx.navigation:navigation-compose:$compose_navigation_version",
+                    'runtimeLivedata': "androidx.compose.runtime:runtime-livedata:$compose_version",
+                    'ui': "androidx.compose.ui:ui:$compose_version",
+                    'uiTooling': "androidx.compose.ui:ui-tooling:1.0.0-beta09",
+                ],
+                'coreKtx': "androidx.core:core-ktx:$core_ktx_version",
+                'appcompat': "androidx.appcompat:appcompat:$app_compat_version",
+                'material': "com.google.android.material:material:$material_version"
+            ],
+            'desugar': 'com.android.tools:desugar_jdk_libs:1.1.5', // https://developer.android.com/studio/write/java8-support
+            'hilt': [
+                'core': "com.google.dagger:hilt-android:$hilt_version",
+                'compiler': "com.google.dagger:hilt-compiler:$hilt_version",
+            ],
+            'lifecycle': [
+                'livedataKtx': "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+                'runtimeKtx': "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
+                'viewmodelKtx': "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+            ],
+            'lottie': [
+                'compose': "com.airbnb.android:lottie-compose:$lottie_version",
+            ],
+            'moshi': [
+                'core' : "com.squareup.moshi:moshi:$moshi_version",
+                'codeGen' : "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version",
+                'adapters' : "com.squareup.moshi:moshi-adapters:$moshi_version"
+            ],
+            'okhttp': [
+                'core': "com.squareup.okhttp3:okhttp:$okhttp_version",
+                'logging': "com.squareup.okhttp3:logging-interceptor:$okhttp_version",
+            ],
+            'retrofit': [
+                'core': "com.squareup.retrofit2:retrofit:$retrofit_version",
+                'converter': "com.squareup.retrofit2:converter-scalars:$retrofit_version",
+                'converterMoshi': "com.squareup.retrofit2:converter-moshi:$retrofit_version",
+            ],
+            'room': [
+                'runtime': "androidx.room:room-runtime:$room_version",
+                'ktx': "androidx.room:room-ktx:$room_version",
+                'compiler': "androidx.room:room-compiler:$room_version",
+            ],
+            'timber': "com.jakewharton.timber:timber:$timber_version",
+        ]
     }
-    ext.kotlin_version = "1.4.0"
+
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
-    dependencies {
-        classpath "com.android.tools.build:gradle:4.2.0-alpha13"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.28-alpha'
-    }
-}
 
-plugins {
-    // Variables can't be used in 'plugins' block,
-    // so duplication of detekt version string is unavoidable in Gradle Groovy DSL for now.
-    // Others experiencing it:  https://github.com/gradle/gradle/issues/3593
-    // Mozilla decided to live with the duplication:  https://github.com/mozilla-mobile/focus-android/issues/1886
-    // Possible solution that requires changing to Gradle Kotlin DSL:  https://github.com/gradle/gradle/issues/1697
-    id "io.gitlab.arturbosch.detekt" version "1.1.1"
-    id 'com.adarshr.test-logger' version '1.7.0'
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.0.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.36'
+
+        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
+    }
 }
 
 subprojects {
-    //<editor-fold desc="detekt">
-    def detektVersion = "1.1.1"
-
     apply plugin: 'io.gitlab.arturbosch.detekt'
 
     detekt {
-        toolVersion = detektVersion
+        toolVersion = detekt_version
         config = files("$rootProject.projectDir/detekt-config.yml")
         baseline = file("$rootProject.projectDir/detekt-baseline.xml")
 
@@ -62,19 +114,14 @@ subprojects {
         }
     }
 
-    // enable formatting rules
-    dependencies {
-        detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detektVersion"
-    }
-    //</editor-fold>
-
     tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
         kotlinOptions {
-//            allWarningsAsErrors = true
-            jvmTarget = buildConfig.javaSourceVersion
+            allWarningsAsErrors = true
+            jvmTarget = javaSourceVersion
         }
     }
 }
+
 
 allprojects {
     repositories {

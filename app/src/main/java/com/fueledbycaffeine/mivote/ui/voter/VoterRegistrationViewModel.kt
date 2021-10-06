@@ -1,15 +1,17 @@
 package com.fueledbycaffeine.mivote.ui.voter
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fueledbycaffeine.mivote.data.VoterInfo
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.michiganelections.api.Api
 import io.michiganelections.api.VoterRegistration
 import timber.log.Timber
+import javax.inject.Inject
 
-class VoterRegistrationViewModel @ViewModelInject constructor(
+@HiltViewModel
+class VoterRegistrationViewModel @Inject constructor(
   private val api: Api.Service
 ) : ViewModel() {
 

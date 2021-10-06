@@ -1,16 +1,16 @@
 package com.fueledbycaffeine.mivote
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import androidx.ui.tooling.preview.Preview
 import com.fueledbycaffeine.mivote.data.VoterInfo
-import com.fueledbycaffeine.mivote.ui.MIVoteTheme
+import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 import com.fueledbycaffeine.mivote.ui.voter.VoterRegistrationStatusScreen
 import com.fueledbycaffeine.mivote.ui.voter.VoterRegistrationViewModel
 import dagger.hilt.android.AndroidEntryPoint

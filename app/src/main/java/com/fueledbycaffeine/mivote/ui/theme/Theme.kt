@@ -1,4 +1,4 @@
-package com.fueledbycaffeine.mivote.ui
+package com.fueledbycaffeine.mivote.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
@@ -37,8 +37,8 @@ fun MIVoteTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable
 
   MaterialTheme(
     colors = colors,
-    typography = typography,
-    shapes = shapes,
+    typography = Typography,
+    shapes = Shapes,
     content = content
   )
 }
