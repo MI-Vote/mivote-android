@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">MI Vote</string>
 
+    <!--Routes/Names for Navigation-->
+    <string name="voter_registration">Registration</string>
+
     <string name="registration_not_found">We couldn\'t find your registration.</string>
     <string name="registration_verify_info">Make sure you\'ve entered your information correctly. If everything looks correct, go ahead and register to vote!</string>
     <string name="registration_voter_info">%1$s %2$s\n%3$s\n%4$s</string>

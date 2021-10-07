@@ -48,6 +48,7 @@ dependencies {
 
     implementation deps.hilt.core
     kapt deps.hilt.compiler
+    implementation deps.hilt.navigation
 
     implementation deps.lifecycle.livedataKtx
     implementation deps.lifecycle.runtimeKtx
