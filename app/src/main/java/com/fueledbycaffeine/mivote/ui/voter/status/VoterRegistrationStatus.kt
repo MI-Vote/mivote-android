@@ -15,7 +15,7 @@ import androidx.lifecycle.MutableLiveData
 import com.fueledbycaffeine.mivote.R
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import com.fueledbycaffeine.mivote.ui.core.LoadingIndicator
-import io.michiganelections.api.VoterRegistration
+import io.michiganelections.api.model.VoterRegistration
 import java.time.LocalDate
 
 @Composable

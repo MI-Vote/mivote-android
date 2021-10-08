@@ -1,11 +1,12 @@
-package com.fueledbycaffeine.mivote.injection
+package io.michiganelections.api.injection
 
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import io.michiganelections.api.Api
+import io.michiganelections.api.service.ApiService
+import io.michiganelections.api.service.ApiServiceImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -38,7 +39,6 @@ class ApiModule {
 
   @Provides
   fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
-    Timber.d("$moshi")
     return Retrofit.Builder()
       .baseUrl("https://michiganelections.io/api/")
       .client(okHttpClient)
@@ -47,7 +47,7 @@ class ApiModule {
   }
 
   @Provides
-  fun provideApiService(retrofit: Retrofit): Api.Service {
-    return Api.ServiceImpl(retrofit)
+  fun provideApiService(apiService: ApiServiceImpl): ApiService {
+    return apiService
   }
 }

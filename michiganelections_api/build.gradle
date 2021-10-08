@@ -44,4 +44,13 @@ dependencies {
 
     implementation deps.hilt.core
     kapt deps.hilt.compiler
+
+    implementation deps.timber
+
+    coreLibraryDesugaring deps.desugar
+
+    testImplementation testDeps.junit
+    testImplementation testDeps.mockk.core
+    testImplementation testDeps.androidX.lifecycle
+    testImplementation testDeps.kotlinCoroutines
 }
