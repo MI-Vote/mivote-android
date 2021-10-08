@@ -17,7 +17,7 @@ import com.fueledbycaffeine.mivote.R
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import com.fueledbycaffeine.mivote.ui.OutlinedButton
 import com.fueledbycaffeine.mivote.ui.PrimaryButton
-import io.michiganelections.api.VoterRegistration
+import io.michiganelections.api.model.VoterRegistration
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle

@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.LiveData
 import com.fueledbycaffeine.mivote.data.VoterInfo
-import io.michiganelections.api.VoterRegistration
+import io.michiganelections.api.model.VoterRegistration
 
 @Composable
 fun VoterRegistrationStatusScreen(

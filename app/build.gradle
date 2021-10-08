@@ -68,6 +68,8 @@ dependencies {
     implementation deps.timber
 
     coreLibraryDesugaring deps.desugar
+
+    testImplementation testDeps.junit
 }
 
 kapt {

@@ -1,4 +1,4 @@
-package io.michiganelections.api
+package io.michiganelections.api.model
 
 import com.squareup.moshi.JsonClass
 
