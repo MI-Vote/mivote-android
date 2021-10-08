@@ -6,6 +6,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.stringResource
@@ -72,8 +73,7 @@ fun MIVoteNavigation(
           zipcode = "00000"
         )
 
-        val coroutineScope = rememberCoroutineScope()
-        coroutineScope.launch {
+        LaunchedEffect(voterInfo) {
           viewModel.checkRegistration(voterInfo = voterInfo)
         }
 

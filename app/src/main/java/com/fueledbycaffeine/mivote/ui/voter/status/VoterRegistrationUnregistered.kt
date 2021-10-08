@@ -17,6 +17,7 @@ import com.fueledbycaffeine.mivote.R
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import com.fueledbycaffeine.mivote.ui.OutlinedButton
 import com.fueledbycaffeine.mivote.ui.PrimaryButton
+import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 import io.michiganelections.api.model.VoterRegistration
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -69,27 +70,29 @@ fun VoterRegistrationUnregistered(
 @Preview(showBackground = true)
 @Composable
 fun PreviewUnregisteredStatus() {
-  VoterRegistrationStatus(
-    VoterInfo(
-      firstName = "John",
-      lastName = "Doe",
-      birthdate = LocalDate.of(1900, 1, 1),
-      zipcode = "12345"
-    ),
-    MutableLiveData(
-      VoterRegistration(
-        registered = false,
-        absentee = false,
-        absenteeApplicationReceived = null,
-        absenteeBallotSent = null,
-        absenteeBallotRecieved = null,
-        pollingLocation = null,
-        dropboxLocation = null,
-        recentlyMoved = false,
-        precinct = null,
-        districts = null,
-      )
-    ).observeAsState()
-  )
+  MIVoteTheme {
+    VoterRegistrationStatus(
+      VoterInfo(
+        firstName = "John",
+        lastName = "Doe",
+        birthdate = LocalDate.of(1900, 1, 1),
+        zipcode = "12345"
+      ),
+      MutableLiveData(
+        VoterRegistration(
+          registered = false,
+          absentee = false,
+          absenteeApplicationReceived = null,
+          absenteeBallotSent = null,
+          absenteeBallotRecieved = null,
+          pollingLocation = null,
+          dropboxLocation = null,
+          recentlyMoved = false,
+          precinct = null,
+          districts = null,
+        )
+      ).observeAsState()
+    )
+  }
 }
 
