@@ -3,33 +3,31 @@ package com.fueledbycaffeine.mivote.ui.voter.ballot
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.fueledbycaffeine.mivote.R
 import com.fueledbycaffeine.mivote.ui.core.LoadingIndicator
-import com.fueledbycaffeine.mivote.ui.voter.status.VoterRegistrationRegistered
+import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 import io.michiganelections.api.model.VoterRegistration
+import timber.log.Timber
 
 @Composable
 fun BallotStatusScreen(
   registrationLiveData: LiveData<VoterRegistration>
 ) {
   val state = registrationLiveData.observeAsState()
+  Timber.d(state.value.toString())
 
   Image(
     painter = painterResource(id = R.drawable.background_lakes),
@@ -49,11 +47,33 @@ fun BallotStatusScreen(
       null -> LoadingIndicator()
       else -> {
         when (registration.absentee) {
-          true -> AbsenteeApplicationReceived()
+          true -> AbsenteeApplicationReceived(registration)
           false -> NonAbsentee()
         }
       }
     }
   }
-  //BallotStatus(state.value)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewBallotStatusScreen() {
+  MIVoteTheme {
+    BallotStatusScreen(
+      registrationLiveData = MutableLiveData(
+        VoterRegistration(
+          registered = true,
+          absentee = true,
+          absenteeApplicationReceived = null,
+          absenteeBallotSent = null,
+          absenteeBallotRecieved = null,
+          pollingLocation = null,
+          dropboxLocation = null,
+          recentlyMoved = false,
+          precinct = null,
+          districts = null,
+        )
+      )
+    )
+  }
 }

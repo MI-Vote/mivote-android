@@ -72,10 +72,10 @@ fun MIVoteNavigation(
 
         // TODO: DELETE WHEN CAN ENTER
         val voterInfo = VoterInfo(
-          firstName = "Joshua",
-          lastName = "Eldridge",
-          birthdate = LocalDate.of(1997, 6, 29),
-          zipcode = "48838"
+          firstName = "John",
+          lastName = "Doe",
+          birthdate = LocalDate.of(2000, 5, 15),
+          zipcode = "49401"
         )
 
         LaunchedEffect(voterInfo) {
@@ -90,11 +90,12 @@ fun MIVoteNavigation(
       composable(MIVoteScreen.BallotStatus.route) { backStackEntry ->
         val viewModel = hiltViewModel<VoterRegistrationViewModel>(backStackEntry)
 
+        // TODO: DELETE WHEN CAN ENTER
         val voterInfo = VoterInfo(
-          firstName = "Joshua",
-          lastName = "Eldridge",
-          birthdate = LocalDate.of(1997, 6, 29),
-          zipcode = "48838"
+          firstName = "John",
+          lastName = "Doe",
+          birthdate = LocalDate.of(2000, 5, 15),
+          zipcode = "49401"
         )
 
         LaunchedEffect(voterInfo) {
