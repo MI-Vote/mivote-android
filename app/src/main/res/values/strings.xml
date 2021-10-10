@@ -3,6 +3,7 @@
 
     <!--Routes/Names for Navigation-->
     <string name="voter_registration">Registration</string>
+    <string name="ballot_status">Ballot Status</string>
 
     <string name="registration_not_found">We couldn\'t find your registration.</string>
     <string name="registration_verify_info">Make sure you\'ve entered your information correctly. If everything looks correct, go ahead and register to vote!</string>
