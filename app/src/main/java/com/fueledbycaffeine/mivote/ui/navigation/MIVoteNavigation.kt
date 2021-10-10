@@ -10,7 +10,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,7 +23,6 @@ import com.fueledbycaffeine.mivote.data.VoterInfo
 import com.fueledbycaffeine.mivote.ui.voter.VoterRegistrationViewModel
 import com.fueledbycaffeine.mivote.ui.voter.ballot.BallotStatusScreen
 import com.fueledbycaffeine.mivote.ui.voter.status.VoterRegistrationStatusScreen
-import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 @Composable
