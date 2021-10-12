@@ -54,3 +54,15 @@ dependencies {
     testImplementation testDeps.androidX.lifecycle
     testImplementation testDeps.kotlinCoroutines
 }
+
+junitJacoco {
+    excludes = [
+        '**/hilt_aggregated_deps/**',
+        '**/HiltComponent**/**',
+        '**/**codegen**/',
+        '**/BuildConfig**',
+
+        '**/**model/**',
+    ]
+}
+

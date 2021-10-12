@@ -1,11 +1,8 @@
-package io.michiganelections.api
+package io.michiganelections.api.service
 
 import io.michiganelections.api.model.Election
 import io.michiganelections.api.model.ResultPage
 import io.michiganelections.api.model.VoterRegistration
-import io.michiganelections.api.service.ApiService
-import io.michiganelections.api.service.ApiServiceImpl
-import io.michiganelections.api.service.Endpoints
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every

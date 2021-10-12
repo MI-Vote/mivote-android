@@ -70,8 +70,23 @@ dependencies {
     coreLibraryDesugaring deps.desugar
 
     testImplementation testDeps.junit
+    testImplementation testDeps.mockk.core
+    testImplementation testDeps.androidX.lifecycle
+    testImplementation testDeps.kotlinCoroutines
 }
 
 kapt {
     correctErrorTypes true
 }
+
+junitJacoco {
+    excludes = [
+        '**/hilt_aggregated_deps/**',
+        '**/HiltComponent**/**',
+        '**/**codegen**/',
+        '**/BuildConfig**',
+
+        '**/**MainActivity**',
+    ]
+}
+
