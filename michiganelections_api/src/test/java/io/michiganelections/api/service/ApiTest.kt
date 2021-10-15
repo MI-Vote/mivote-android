@@ -2,6 +2,7 @@ package io.michiganelections.api.service
 
 import io.michiganelections.api.model.Election
 import io.michiganelections.api.model.ResultPage
+import io.michiganelections.api.model.SampleBallot
 import io.michiganelections.api.model.VoterRegistration
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -57,5 +58,18 @@ class ApiTest {
     Assert.assertEquals(expected, actual)
 
     coVerify { mockEndpoints.registrations(firstName, lastName, "2020-11-03", zipcode) }
+  }
+
+  @Test
+  fun testGetSampleBallot() = runBlockingTest {
+    val precinctId = 43947
+    val expectedBallot = mockk<SampleBallot>()
+
+    coEvery { mockEndpoints.getSampleBallotUrl(precinctId) } returns expectedBallot
+
+    val actualBallot = service.getSampleBallot(precinctId)
+    Assert.assertEquals(expectedBallot, actualBallot)
+
+    coVerify { mockEndpoints.getSampleBallotUrl(precinctId) }
   }
 }

@@ -2,6 +2,7 @@ package io.michiganelections.api.service
 
 import io.michiganelections.api.model.Election
 import io.michiganelections.api.model.ResultPage
+import io.michiganelections.api.model.SampleBallot
 import io.michiganelections.api.model.VoterRegistration
 import retrofit2.Retrofit
 import java.time.LocalDate
@@ -25,5 +26,9 @@ class ApiServiceImpl @Inject constructor(
   ): VoterRegistration {
     val birthdayStr = DateTimeFormatter.ISO_DATE.format(birthDate)
     return endpoint.registrations(firstName, lastName, birthdayStr, zipcode)
+  }
+
+  override suspend fun getSampleBallot(precinctId: Int): SampleBallot {
+    return endpoint.getSampleBallotUrl(precinctId)
   }
 }

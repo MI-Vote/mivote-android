@@ -35,7 +35,7 @@ fun VoterRegistrationStatus(
     null -> LoadingIndicator()
     else -> {
       when (state.registered) {
-        true -> VoterRegistrationRegistered()
+        true -> VoterRegistrationRegistered(voterRegistration = state)
         false -> VoterRegistrationUnregistered(voterInfo = voterInfo)
       }
     }

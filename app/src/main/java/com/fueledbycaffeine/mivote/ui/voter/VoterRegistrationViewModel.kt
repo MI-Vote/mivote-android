@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.michiganelections.api.model.SampleBallot
 import io.michiganelections.api.model.VoterRegistration
 import io.michiganelections.api.service.ApiService
 import javax.inject.Inject
@@ -26,5 +27,9 @@ class VoterRegistrationViewModel @Inject constructor(
     )
     registration.value = registrationResult
     return registrationResult
+  }
+
+  suspend fun getSampleBallot(precinctId: Int): SampleBallot {
+    return api.getSampleBallot(precinctId = precinctId)
   }
 }

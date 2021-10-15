@@ -8,7 +8,7 @@ data class VoterRegistration(
   val absentee: Boolean,
   val absenteeApplicationReceived: String?, //date
   val absenteeBallotSent: String?, //date
-  val absenteeBallotRecieved: String?, //date
+  val absenteeBallotReceived: String?, //date
   val pollingLocation: List<String>?,
   val dropboxLocation: List<String>?,
   val recentlyMoved: Boolean?,

@@ -2,8 +2,10 @@ package io.michiganelections.api.service
 
 import io.michiganelections.api.model.Election
 import io.michiganelections.api.model.ResultPage
+import io.michiganelections.api.model.SampleBallot
 import io.michiganelections.api.model.VoterRegistration
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 internal interface Endpoints {
@@ -19,4 +21,9 @@ internal interface Endpoints {
     @Query("birth_date") birthDate: String,
     @Query("zip_code") zipcode: String
   ): VoterRegistration
+
+  @GET("ballots")
+  suspend fun getSampleBallotUrl(
+    @Path("precinct_id") precinctId: Int
+  ): SampleBallot
 }
