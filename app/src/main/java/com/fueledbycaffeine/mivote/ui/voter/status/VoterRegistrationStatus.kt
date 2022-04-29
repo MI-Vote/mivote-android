@@ -15,6 +15,7 @@ import androidx.lifecycle.MutableLiveData
 import com.fueledbycaffeine.mivote.R
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import com.fueledbycaffeine.mivote.ui.core.LoadingIndicator
+import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 import io.michiganelections.api.model.VoterRegistration
 import java.time.LocalDate
 
@@ -45,13 +46,15 @@ fun VoterRegistrationStatus(
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoadingStatus() {
-  VoterRegistrationStatus(
-    VoterInfo(
-      firstName = "John",
-      lastName = "Doe",
-      birthdate = LocalDate.of(1900, 1, 1),
-      zipcode = "12345"
-    ),
-    MutableLiveData<VoterRegistration>().observeAsState()
-  )
+  MIVoteTheme {
+    VoterRegistrationStatus(
+      VoterInfo(
+        firstName = "John",
+        lastName = "Doe",
+        birthdate = LocalDate.of(1900, 1, 1),
+        zipcode = "12345"
+      ),
+      MutableLiveData<VoterRegistration>().observeAsState()
+    )
+  }
 }
