@@ -18,8 +18,8 @@
 
         <activity
             android:name="com.fueledbycaffeine.mivote.MainActivity"
-            android:label="@string/app_name"
             android:theme="@style/Theme.MIVote.NoActionBar"
+            android:exported="true"
             tools:ignore="IntentFilterExportedReceiver"
             >
             <intent-filter>

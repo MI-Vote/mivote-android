@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">MI Vote</string>
+    <string name="zipcode">Zipcode</string>
+    <string name="invalid_zipcode">Invalid Zipcode</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="birthdate">Birth date</string>
+    <string name="check_registration">Check Registration</string>
 
     <!--Routes/Names for Navigation-->
     <string name="voter_registration">Registration</string>
