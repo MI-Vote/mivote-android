@@ -24,8 +24,8 @@ class VoterRegistrationViewModel @Inject constructor(
   var voterInfo by mutableStateOf<VoterInfo?>(null)
     private set
 
-  fun updateVoterInfo(_voterInfo: VoterInfo?) {
-    voterInfo = _voterInfo
+  fun updateVoterInfo(voterInfoToUpdate: VoterInfo?) {
+    voterInfo = voterInfoToUpdate
   }
 
   fun reset() {
