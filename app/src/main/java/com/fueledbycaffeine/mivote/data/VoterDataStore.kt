@@ -15,8 +15,10 @@ class VoterDataStore(private val context: Context) {
   companion object {
     private const val VOTER_INFO_FILENAME = "voterInfo"
     private const val MASTER_KEY_ALIAS = "mivote-voterInfo"
-    private val KEY_ENCRYPTION_SCHEME = EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV
-    private val VALUE_ENCRYPTION_SCHEME = EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+    private val KEY_ENCRYPTION_SCHEME =
+      EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV
+    private val VALUE_ENCRYPTION_SCHEME =
+      EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
 
     private val DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE
 
@@ -33,7 +35,12 @@ class VoterDataStore(private val context: Context) {
       val lastName = prefs.getString(PREF_KEY_VOTER_LAST_NAME, null) ?: return null
       val birthdate = prefs.getString(PREF_KEY_VOTER_BIRTHDATE_NAME, null) ?: return null
       val zipcode = prefs.getString(PREF_KEY_VOTER_ZIPCODE_NAME, null) ?: return null
-      return VoterInfo(firstName, lastName, DATE_FORMATTER.parse(birthdate, LocalDate::from), zipcode)
+      return VoterInfo(
+        firstName,
+        lastName,
+        DATE_FORMATTER.parse(birthdate, LocalDate::from),
+        zipcode
+      )
     }
     set(value) {
       if (value == null) {
@@ -49,35 +56,36 @@ class VoterDataStore(private val context: Context) {
       }
     }
 
-  private val sharedPreferences: SharedPreferences? get() {
-    val keyGenParameterSpec = KeyGenParameterSpec
-      .Builder(
-        MASTER_KEY_ALIAS,
-        KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
-      )
-      .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
-      .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
-      .setKeySize(256)
-      .build()
+  private val sharedPreferences: SharedPreferences?
+    get() {
+      val keyGenParameterSpec = KeyGenParameterSpec
+        .Builder(
+          MASTER_KEY_ALIAS,
+          KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+        )
+        .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+        .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+        .setKeySize(256)
+        .build()
 
-    val masterKeyAlias = MasterKey.Builder(context, MASTER_KEY_ALIAS)
-      .setKeyGenParameterSpec(keyGenParameterSpec)
-      .build()
+      val masterKeyAlias = MasterKey.Builder(context, MASTER_KEY_ALIAS)
+        .setKeyGenParameterSpec(keyGenParameterSpec)
+        .build()
 
-    return try {
-      EncryptedSharedPreferences.create(
-        context,
-        VOTER_INFO_FILENAME,
-        masterKeyAlias,
-        KEY_ENCRYPTION_SCHEME,
-        VALUE_ENCRYPTION_SCHEME
-      )
-    } catch (e: GeneralSecurityException) {
-      // todo
-      null
-    } catch (e: IOException) {
-      // todo
-      null
+      return try {
+        EncryptedSharedPreferences.create(
+          context,
+          VOTER_INFO_FILENAME,
+          masterKeyAlias,
+          KEY_ENCRYPTION_SCHEME,
+          VALUE_ENCRYPTION_SCHEME
+        )
+      } catch (e: GeneralSecurityException) {
+        // todo
+        null
+      } catch (e: IOException) {
+        // todo
+        null
+      }
     }
-  }
 }

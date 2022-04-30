@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +28,8 @@ import java.time.format.FormatStyle
 fun VoterRegistrationUnregistered(
   voterInfo: VoterInfo
 ) {
+  val uriHandler = LocalUriHandler.current
+
   Column(
     modifier = Modifier
       .fillMaxSize()
@@ -57,7 +60,7 @@ fun VoterRegistrationUnregistered(
     PrimaryButton(
       modifier = Modifier.padding(top = dimensionResource(id = R.dimen.margin_large)),
       text = stringResource(id = R.string.register_to_vote),
-      onClick = {}
+      onClick = { uriHandler.openUri("https://mvic.sos.state.mi.us/registervoter") },
     )
     OutlinedButton(
       modifier = Modifier.padding(top = dimensionResource(id = R.dimen.margin_small)),
@@ -84,7 +87,7 @@ fun PreviewUnregisteredStatus() {
           absentee = false,
           absenteeApplicationReceived = null,
           absenteeBallotSent = null,
-          absenteeBallotRecieved = null,
+          absenteeBallotReceived = null,
           pollingLocation = null,
           dropboxLocation = null,
           recentlyMoved = false,

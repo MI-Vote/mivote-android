@@ -49,6 +49,7 @@ fun BallotStatusScreen(
         when (registration.absentee) {
           true -> AbsenteeApplicationReceived(registration)
           false -> NonAbsentee()
+          else -> {}
         }
       }
     }
@@ -66,7 +67,7 @@ fun PreviewBallotStatusScreen() {
           absentee = true,
           absenteeApplicationReceived = null,
           absenteeBallotSent = null,
-          absenteeBallotRecieved = null,
+          absenteeBallotReceived = null,
           pollingLocation = null,
           dropboxLocation = null,
           recentlyMoved = false,

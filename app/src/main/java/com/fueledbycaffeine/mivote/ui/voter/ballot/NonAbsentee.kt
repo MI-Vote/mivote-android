@@ -29,7 +29,7 @@ fun NonAbsentee() {
       val uriHandler = LocalUriHandler.current
       PrimaryButton(
         text = "Register Absentee",
-        onClick = { uriHandler.openUri("https://absentee.michiganelections.io/")},
+        onClick = { uriHandler.openUri("https://absentee.michiganelections.io/") },
         modifier = Modifier.padding(8.dp)
       )
     }

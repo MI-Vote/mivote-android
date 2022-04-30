@@ -8,6 +8,7 @@
     <string name="check_registration">Check Registration</string>
 
     <!--Routes/Names for Navigation-->
+    <string name="voter_input">Voter Input</string>
     <string name="voter_registration">Registration</string>
     <string name="ballot_status">Ballot Status</string>
 
@@ -16,7 +17,8 @@
     <string name="registration_voter_info">%1$s %2$s\n%3$s\n%4$s</string>
     <string name="register_to_vote">Register to Vote</string>
     <string name="try_again">Try Again</string>
-    <string name="already_registered">Awesome! You are registered to vote!</string>
+    <string name="already_registered">You are registered to vote!</string>
+    <string name="your_polling_location_is">Your polling location is:\n\n%1$s</string>
     <string name="registration_continue">Continue</string>
 
 </resources>

@@ -12,21 +12,23 @@ import androidx.compose.ui.unit.dp
 import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 import io.michiganelections.api.model.VoterRegistration
 
-
 @Composable
 fun AbsenteeApplicationReceived(registration: VoterRegistration) {
   Surface(
     shape = MaterialTheme.shapes.medium,
-    elevation = 2.dp) {
+    elevation = 2.dp
+  ) {
     Column {
       Text(
         text = "You are registered to vote as absentee!",
         style = MaterialTheme.typography.h1,
-        modifier = Modifier.padding(16.dp))
+        modifier = Modifier.padding(16.dp)
+      )
       Text(
         text = "Application last received: ${registration.absenteeApplicationReceived ?: "N/A"}",
         style = MaterialTheme.typography.h1,
-        modifier = Modifier.padding(16.dp))
+        modifier = Modifier.padding(16.dp)
+      )
     }
   }
 }
@@ -41,7 +43,7 @@ fun PreviewAbsenteeApplicationReceived() {
         absentee = true,
         absenteeApplicationReceived = null,
         absenteeBallotSent = null,
-        absenteeBallotRecieved = null,
+        absenteeBallotReceived = null,
         pollingLocation = null,
         dropboxLocation = null,
         recentlyMoved = false,

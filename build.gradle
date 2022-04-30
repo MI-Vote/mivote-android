@@ -115,7 +115,15 @@ buildscript {
         classpath 'com.google.dagger:hilt-android-gradle-plugin:2.41'
 
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
+
+        classpath "com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0"
     }
+}
+
+apply plugin: "com.vanniktech.android.junit.jacoco"
+
+junitJacoco {
+    jacocoVersion = '0.8.7'
 }
 
 subprojects {

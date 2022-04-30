@@ -17,6 +17,14 @@ import timber.log.Timber
 @InstallIn(SingletonComponent::class)
 class ApiModule {
 
+  private val httpLoggingInterceptor = HttpLoggingInterceptor { message ->
+    Timber.tag("HTTP").d(message)
+  }
+    .apply {
+      level = HttpLoggingInterceptor.Level.BASIC
+    }
+
+
   @Provides
   fun provideMoshi(): Moshi {
     return Moshi.Builder()
@@ -24,14 +32,7 @@ class ApiModule {
   }
 
   @Provides
-  fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
-    val loggingInterceptor = HttpLoggingInterceptor { message -> Timber.tag("HTTP").d(message) }
-    loggingInterceptor.level = HttpLoggingInterceptor.Level.BASIC
-    return loggingInterceptor
-  }
-
-  @Provides
-  fun provideOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+  fun provideOkHttpClient(): OkHttpClient {
     return OkHttpClient.Builder()
       .addInterceptor(httpLoggingInterceptor)
       .build()
