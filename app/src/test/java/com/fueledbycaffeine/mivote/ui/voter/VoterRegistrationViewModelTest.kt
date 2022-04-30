@@ -51,22 +51,30 @@ class VoterRegistrationViewModelTest {
     } returns expectedResult
 
     // TODO: update test here to reconsider the need for LiveData
-    evaluateLiveDataSequence(
-      liveData = viewModel.registration,
-      evaluators = listOf { registration ->
-        Assert.assertEquals(expectedResult, registration)
-      },
-      block = {
-        val voterInfo = VoterInfo(
-          firstName = firstName,
-          lastName = lastName,
-          birthdate = birthdate,
-          zipcode = zipcode
-        )
-        viewModel.checkRegistration(voterInfo)
-        Assert.assertEquals(expectedResult, viewModel.registration.value)
-      }
+//    evaluateLiveDataSequence(
+//      liveData = viewModel.registration,
+//      evaluators = listOf { registration ->
+//        Assert.assertEquals(expectedResult, registration)
+//      },
+//      block = {
+//        val voterInfo = VoterInfo(
+//          firstName = firstName,
+//          lastName = lastName,
+//          birthdate = birthdate,
+//          zipcode = zipcode
+//        )
+//        viewModel.checkRegistration(voterInfo)
+//        Assert.assertEquals(expectedResult, viewModel.registration.value)
+//      }
+//    )
+    val voterInfo = VoterInfo(
+      firstName = firstName,
+      lastName = lastName,
+      birthdate = birthdate,
+      zipcode = zipcode
     )
+    viewModel.checkRegistration(voterInfo)
+    Assert.assertEquals(expectedResult, viewModel.registration.value)
 
     coVerify { mockApiService.getVoter(firstName, lastName, birthdate, zipcode) }
   }
