@@ -7,13 +7,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.MutableLiveData
 import com.fueledbycaffeine.mivote.R
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import com.fueledbycaffeine.mivote.ui.OutlinedButton
@@ -26,7 +24,8 @@ import java.time.format.FormatStyle
 
 @Composable
 fun VoterRegistrationUnregistered(
-  voterInfo: VoterInfo
+  voterInfo: VoterInfo,
+  onTryAgain: () -> Unit
 ) {
   val uriHandler = LocalUriHandler.current
 
@@ -65,7 +64,7 @@ fun VoterRegistrationUnregistered(
     OutlinedButton(
       modifier = Modifier.padding(top = dimensionResource(id = R.dimen.margin_small)),
       text = stringResource(id = R.string.try_again),
-      onClick = {},
+      onClick = onTryAgain,
     )
   }
 }
@@ -81,20 +80,21 @@ fun PreviewUnregisteredStatus() {
         birthdate = LocalDate.of(1900, 1, 1),
         zipcode = "12345"
       ),
-      MutableLiveData(
-        VoterRegistration(
-          registered = false,
-          absentee = false,
-          absenteeApplicationReceived = null,
-          absenteeBallotSent = null,
-          absenteeBallotReceived = null,
-          pollingLocation = null,
-          dropboxLocation = null,
-          recentlyMoved = false,
-          precinct = null,
-          districts = null,
-        )
-      ).observeAsState()
+      VoterRegistration(
+        registered = false,
+        ballot = true,
+        absentee = false,
+        absenteeApplicationReceived = null,
+        absenteeBallotSent = null,
+        absenteeBallotReceived = null,
+        pollingLocation = null,
+        dropboxLocations = null,
+        recentlyMoved = false,
+        precinct = null,
+        districts = null,
+      ),
+      onContinue = {},
+      onTryAgain = {}
     )
   }
 }

@@ -40,12 +40,13 @@ fun PreviewAbsenteeApplicationReceived() {
     AbsenteeApplicationReceived(
       registration = VoterRegistration(
         registered = true,
+        ballot = true,
         absentee = true,
         absenteeApplicationReceived = null,
         absenteeBallotSent = null,
         absenteeBallotReceived = null,
         pollingLocation = null,
-        dropboxLocation = null,
+        dropboxLocations = null,
         recentlyMoved = false,
         precinct = null,
         districts = null,

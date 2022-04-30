@@ -1,6 +1,8 @@
-package com.fueledbycaffeine.mivote.ui.voter
+package com.fueledbycaffeine.mivote.ui.voter.voterinfo
 
+import android.app.DatePickerDialog
 import androidx.annotation.StringRes
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,9 +16,12 @@ import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,35 +35,32 @@ import java.time.format.FormatStyle
 
 @Composable
 fun VoterInfoForm(
-  voterInfo: VoterInfo?,
-  voterInfoState: MutableState<VoterInfo?> = remember { mutableStateOf(voterInfo) }
+  voterInfoState: MutableState<VoterInfo>,
 ) {
   Column {
-    val firstNameState = remember { mutableStateOf(voterInfoState.value?.firstName ?: "") }
-    val lastNameState = remember { mutableStateOf(voterInfoState.value?.lastName ?: "") }
-    val birthdateState = remember { mutableStateOf(voterInfoState.value?.birthdate) }
-    val zipcodeState = remember { mutableStateOf(voterInfoState.value?.zipcode ?: "") }
-
     NameField(
       hintText = R.string.first_name,
-      textState = firstNameState
+      name = voterInfoState.value.firstName,
+      onValueChange = { voterInfoState.value = voterInfoState.value.copy(firstName = it) }
     )
     Spacer(modifier = Modifier.height(24.dp))
 
     NameField(
       hintText = R.string.last_name,
-      textState = lastNameState
+      name = voterInfoState.value.lastName,
+      onValueChange = { voterInfoState.value = voterInfoState.value.copy(lastName = it) }
     )
     Spacer(modifier = Modifier.height(24.dp))
 
     BirthDateField(
-      date = voterInfo?.birthdate,
-      dateState = birthdateState
+      initialDate = voterInfoState.value.birthdate,
+      dateChanged = { voterInfoState.value = voterInfoState.value.copy(birthdate = it) }
     )
     Spacer(modifier = Modifier.height(24.dp))
 
     ZipcodeField(
-      zipcodeState = zipcodeState
+      zipcode = voterInfoState.value.zipcode,
+      onZipcodeChange = { voterInfoState.value = voterInfoState.value.copy(zipcode = it) }
     )
   }
 }
@@ -66,14 +68,14 @@ fun VoterInfoForm(
 @Composable
 fun NameField(
   @StringRes hintText: Int,
-//  text: String,
-  textState: MutableState<String> = remember { mutableStateOf("") },
+  name: String,
+  onValueChange: (value: String) -> Unit,
 //  imeAction: ImeAction = ImeAction.Next,
 //  onImeAction: () -> Unit = {}
 ) {
   TextField(
-    value = textState.value,
-    onValueChange = { textState.value = it },
+    value = name,
+    onValueChange = { onValueChange(it) },
     label = {
       CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
         Text(
@@ -97,14 +99,14 @@ fun NameField(
 
 @Composable
 fun ZipcodeField(
-//  zipcode: String,
-  zipcodeState: MutableState<String> = remember { mutableStateOf("") },
+  zipcode: String,
+  onZipcodeChange: (zipCode: String) -> Unit,
 //  imeAction: ImeAction = ImeAction.Done,
 //  onImeAction: () -> Unit = {}
 ) {
   TextField(
-    value = zipcodeState.value,
-    onValueChange = { zipcodeState.value = it },
+    value = zipcode,
+    onValueChange = { onZipcodeChange(it) },
     label = {
       CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
         Text(
@@ -126,19 +128,25 @@ fun ZipcodeField(
   )
 }
 
+// TODO: Improve this field
 @Composable
 fun BirthDateField(
-  date: LocalDate?,
-  dateState: MutableState<LocalDate?> = remember { mutableStateOf(date) },
+  initialDate: LocalDate = LocalDate.now(),
+  dateChanged: (date: LocalDate) -> Unit,
 ) {
-  val dateText = when (val ds = dateState.value) {
-    null -> ""
-    else -> DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(ds)
-  }
+  var date by remember { mutableStateOf(initialDate) }
+  val datePickerDialog = DatePickerDialog(
+    LocalContext.current,
+    { _, year: Int, month: Int, dayOfMonth: Int ->
+      date = LocalDate.of(year, month + 1, dayOfMonth)
+      dateChanged(date)
+    }, date.year, date.monthValue - 1, date.dayOfMonth
+  )
 
   TextField(
-    value = dateText,
-    onValueChange = { /* Does not allow direct editing */ },
+    enabled = false,
+    value = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(date),
+    onValueChange = { },
     label = {
       CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
         Text(
@@ -148,7 +156,9 @@ fun BirthDateField(
       }
     },
     textStyle = MaterialTheme.typography.body2,
-    modifier = Modifier.fillMaxWidth(),
+    modifier = Modifier
+      .fillMaxWidth()
+      .clickable { datePickerDialog.show() }
   )
 }
 
@@ -156,8 +166,17 @@ fun BirthDateField(
 @Composable
 fun DefaultPreview() {
   MIVoteTheme {
-    VoterInfoForm(
-      VoterInfo("Joshua", "Friend", LocalDate.of(1991, 4, 1), "12345")
-    )
+    val voterInfo =
+      remember {
+        mutableStateOf(
+          VoterInfo(
+            "Joshua",
+            "Friend",
+            LocalDate.of(1991, 4, 1),
+            "12345"
+          )
+        )
+      }
+    VoterInfoForm(voterInfo)
   }
 }

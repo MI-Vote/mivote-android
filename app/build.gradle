@@ -70,6 +70,7 @@ dependencies {
 
     coreLibraryDesugaring deps.desugar
 
+    testImplementation testDeps.androidX.junit
     testImplementation testDeps.junit
     testImplementation testDeps.mockk.core
     testImplementation testDeps.androidX.lifecycle

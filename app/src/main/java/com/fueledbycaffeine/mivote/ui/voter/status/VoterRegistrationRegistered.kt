@@ -19,6 +19,7 @@ import io.michiganelections.api.model.VoterRegistration
 @Composable
 fun VoterRegistrationRegistered(
   voterRegistration: VoterRegistration,
+  onContinue: () -> Unit,
 ) {
   Column(
     modifier = Modifier
@@ -42,7 +43,7 @@ fun VoterRegistrationRegistered(
     PrimaryButton(
       modifier = Modifier.padding(top = dimensionResource(id = R.dimen.margin_small)),
       text = stringResource(id = R.string.registration_continue),
-      onClick = {}
+      onClick = onContinue
     )
   }
 }
@@ -54,6 +55,7 @@ fun PreviewRegisteredStatus() {
     VoterRegistrationRegistered(
       VoterRegistration(
         registered = true,
+        ballot = true,
         absentee = false,
         absenteeApplicationReceived = null,
         absenteeBallotSent = null,
@@ -63,11 +65,12 @@ fun PreviewRegisteredStatus() {
           "1234 The Street",
           "Grand Rapids, MI 49503"
         ),
-        dropboxLocation = null,
+        dropboxLocations = null,
         recentlyMoved = false,
         precinct = null,
         districts = null,
-      )
+      ),
+      onContinue = {},
     )
   }
 }

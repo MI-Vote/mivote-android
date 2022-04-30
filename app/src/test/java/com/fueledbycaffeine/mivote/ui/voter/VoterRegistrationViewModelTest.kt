@@ -10,7 +10,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -34,7 +34,7 @@ class VoterRegistrationViewModelTest {
   }
 
   @Test
-  fun testCheckRegistration() = runBlockingTest {
+  fun testCheckRegistration() = runTest {
     val firstName = "John"
     val lastName = "Doe"
     val birthdate = LocalDate.now()
@@ -50,8 +50,9 @@ class VoterRegistrationViewModelTest {
       )
     } returns expectedResult
 
+    // TODO: update test here to reconsider the need for LiveData
     evaluateLiveDataSequence(
-      liveData = viewModel.registrationLiveData,
+      liveData = viewModel.registration,
       evaluators = listOf { registration ->
         Assert.assertEquals(expectedResult, registration)
       },
@@ -62,7 +63,8 @@ class VoterRegistrationViewModelTest {
           birthdate = birthdate,
           zipcode = zipcode
         )
-        Assert.assertEquals(expectedResult, viewModel.checkRegistration(voterInfo))
+        viewModel.checkRegistration(voterInfo)
+        Assert.assertEquals(expectedResult, viewModel.registration.value)
       }
     )
 
@@ -70,7 +72,7 @@ class VoterRegistrationViewModelTest {
   }
 
   @Test
-  fun testGetSampleBallot() = runBlockingTest {
+  fun testGetSampleBallot() = runTest {
     val precinctId = 1
     val expected = mockk<SampleBallot>()
 
