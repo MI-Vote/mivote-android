@@ -1,12 +1,8 @@
 package com.fueledbycaffeine.mivote.ui.voter
 
 import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
-import com.fueledbycaffeine.mivote.data.VoterDataStore
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.michiganelections.api.model.SampleBallot

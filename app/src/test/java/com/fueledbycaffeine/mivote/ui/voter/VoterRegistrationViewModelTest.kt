@@ -2,7 +2,6 @@ package com.fueledbycaffeine.mivote.ui.voter
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.fueledbycaffeine.mivote.data.VoterInfo
-import com.fueledbycaffeine.mivote.util.evaluateLiveDataSequence
 import io.michiganelections.api.model.SampleBallot
 import io.michiganelections.api.model.VoterRegistration
 import io.michiganelections.api.service.ApiService
