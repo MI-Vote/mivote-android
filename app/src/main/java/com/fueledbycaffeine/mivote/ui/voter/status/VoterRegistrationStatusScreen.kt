@@ -3,7 +3,10 @@ package com.fueledbycaffeine.mivote.ui.voter.status
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
@@ -22,13 +25,16 @@ fun VoterRegistrationStatusScreen(
 ) {
   val voterInfo = voterRegistrationViewModel.voterInfo
   val voterRegistration by voterRegistrationViewModel.registration
+  var registrationChecked by remember { mutableStateOf(false) }
   val coroutineScope = rememberCoroutineScope()
 
-  if (voterRegistration == null) {
+  if (!registrationChecked) {
     VoterInputScreen(
       voterInfo,
       checkRegistration = {
         coroutineScope.launch {
+          registrationChecked = true
+          // TODO handle when the registration check fails
           voterRegistrationViewModel.checkRegistration(it)
         }
       },
@@ -44,6 +50,7 @@ fun VoterRegistrationStatusScreen(
       },
       onTryAgain = {
         voterRegistrationViewModel.reset()
+        registrationChecked = false
       }
     )
   }
