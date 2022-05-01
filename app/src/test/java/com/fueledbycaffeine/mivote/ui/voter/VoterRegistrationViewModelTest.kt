@@ -1,6 +1,7 @@
 package com.fueledbycaffeine.mivote.ui.voter
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.fueledbycaffeine.mivote.data.VoterDataStore
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import io.michiganelections.api.model.SampleBallot
 import io.michiganelections.api.model.VoterRegistration
@@ -22,13 +23,16 @@ class VoterRegistrationViewModelTest {
   @Rule @JvmField val testRule = InstantTaskExecutorRule()
 
   private lateinit var mockApiService: ApiService
+  private lateinit var mockVoterDataStore: VoterDataStore
   private lateinit var viewModel: VoterRegistrationViewModel
 
   @Before
   fun setup() {
     mockApiService = mockk()
+    mockVoterDataStore = mockk()
     viewModel = VoterRegistrationViewModel(
-      api = mockApiService
+      api = mockApiService,
+      dataStore = mockVoterDataStore
     )
   }
 
