@@ -9,4 +9,6 @@ data class VoterInfo(
   var lastName: String,
   var birthdate: LocalDate,
   var zipcode: String
-)
+) {
+  fun isValid(): Boolean = firstName.isNotBlank() && lastName.isNotBlank() && zipcode.isNotBlank()
+}

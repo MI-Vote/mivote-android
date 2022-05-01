@@ -1,4 +1,4 @@
-package com.fueledbycaffeine.mivote.ui.voter.voterinfo
+package com.fueledbycaffeine.mivote.ui.voter.status.voterinfo
 
 import android.app.DatePickerDialog
 import androidx.annotation.StringRes
@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.LocalContentAlpha
@@ -21,8 +22,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -54,7 +58,7 @@ fun VoterInfoForm(
 
     BirthDateField(
       initialDate = voterInfoState.value.birthdate,
-      dateChanged = { voterInfoState.value = voterInfoState.value.copy(birthdate = it) }
+      dateChanged = { voterInfoState.value = voterInfoState.value.copy(birthdate = it)}
     )
     Spacer(modifier = Modifier.height(24.dp))
 
@@ -70,9 +74,9 @@ fun NameField(
   @StringRes hintText: Int,
   name: String,
   onValueChange: (value: String) -> Unit,
-//  imeAction: ImeAction = ImeAction.Next,
-//  onImeAction: () -> Unit = {}
+  imeAction: ImeAction = ImeAction.Next,
 ) {
+  val focusManager = LocalFocusManager.current
   TextField(
     value = name,
     onValueChange = { onValueChange(it) },
@@ -86,14 +90,10 @@ fun NameField(
     },
     textStyle = MaterialTheme.typography.body2,
     modifier = Modifier.fillMaxWidth(),
-//    keyboardType = KeyboardType.Text,
-//    imeAction = imeAction,
-//    onImeActionPerformed = { action, softKeyboardController ->
-//      if (action == ImeAction.Done) {
-//        softKeyboardController?.hideSoftwareKeyboard()
-//      }
-//      onImeAction()
-//    }
+    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = imeAction),
+    keyboardActions = KeyboardActions(onNext = {
+      focusManager.moveFocus(FocusDirection.Down)
+    })
   )
 }
 
@@ -101,9 +101,9 @@ fun NameField(
 fun ZipcodeField(
   zipcode: String,
   onZipcodeChange: (zipCode: String) -> Unit,
-//  imeAction: ImeAction = ImeAction.Done,
-//  onImeAction: () -> Unit = {}
+  imeAction: ImeAction = ImeAction.Done,
 ) {
+  val focusManager = LocalFocusManager.current
   TextField(
     value = zipcode,
     onValueChange = { onZipcodeChange(it) },
@@ -117,14 +117,10 @@ fun ZipcodeField(
     },
     textStyle = MaterialTheme.typography.body2,
     modifier = Modifier.fillMaxWidth(),
-    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-//    imeAction = imeAction,
-//    onImeActionPerformed = { action, softKeyboardController ->
-//      if (action == ImeAction.Done) {
-//        softKeyboardController?.hideSoftwareKeyboard()
-//      }
-//      onImeAction()
-//    }
+    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number, imeAction = imeAction),
+    keyboardActions = KeyboardActions(onDone = {
+      focusManager.clearFocus()
+    })
   )
 }
 
@@ -133,6 +129,7 @@ fun ZipcodeField(
 fun BirthDateField(
   initialDate: LocalDate = LocalDate.now(),
   dateChanged: (date: LocalDate) -> Unit,
+  imeAction: ImeAction = ImeAction.Next,
 ) {
   var date by remember { mutableStateOf(initialDate) }
   val datePickerDialog = DatePickerDialog(
@@ -143,6 +140,7 @@ fun BirthDateField(
     }, date.year, date.monthValue - 1, date.dayOfMonth
   )
 
+  val focusManager = LocalFocusManager.current
   TextField(
     enabled = false,
     value = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).format(date),
@@ -158,7 +156,11 @@ fun BirthDateField(
     textStyle = MaterialTheme.typography.body2,
     modifier = Modifier
       .fillMaxWidth()
-      .clickable { datePickerDialog.show() }
+      .clickable { datePickerDialog.show() },
+    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = imeAction),
+    keyboardActions = KeyboardActions(onNext = {
+      focusManager.moveFocus(FocusDirection.Down)
+    })
   )
 }
 
@@ -173,8 +175,7 @@ fun DefaultPreview() {
             "Joshua",
             "Friend",
             LocalDate.of(1991, 4, 1),
-            "12345"
-          )
+            "12345")
         )
       }
     VoterInfoForm(voterInfo)

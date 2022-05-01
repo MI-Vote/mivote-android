@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.fueledbycaffeine.mivote.ui.navigation.MIVoteScreen
 import com.fueledbycaffeine.mivote.ui.voter.VoterRegistrationViewModel
-import com.fueledbycaffeine.mivote.ui.voter.voterinfo.VoterInputScreen
+import com.fueledbycaffeine.mivote.ui.voter.status.voterinfo.VoterInputScreen
 import kotlinx.coroutines.launch
 
 @Composable
@@ -22,10 +22,10 @@ fun VoterRegistrationStatusScreen(
   val voterRegistration by voterRegistrationViewModel.registration
   val coroutineScope = rememberCoroutineScope()
 
-  if (voterInfo == null) {
+  if (voterRegistration == null) {
     VoterInputScreen(
+      voterInfo,
       checkRegistration = {
-        voterRegistrationViewModel.updateVoterInfo(it)
         coroutineScope.launch {
           voterRegistrationViewModel.checkRegistration(it)
         }
@@ -34,7 +34,7 @@ fun VoterRegistrationStatusScreen(
     )
   } else {
     VoterRegistrationStatus(
-      voterInfo,
+      voterInfo.value,
       voterRegistration,
       modifier = modifier,
       onContinue = {

@@ -4,13 +4,16 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
+import com.fueledbycaffeine.mivote.data.VoterDataStore
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.michiganelections.api.model.SampleBallot
 import io.michiganelections.api.model.VoterRegistration
 import io.michiganelections.api.service.ApiService
 import timber.log.Timber
+import java.time.LocalDate
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,16 +24,17 @@ class VoterRegistrationViewModel @Inject constructor(
   private val _registration = mutableStateOf<VoterRegistration?>(null)
   val registration: State<VoterRegistration?> = _registration
 
-  var voterInfo by mutableStateOf<VoterInfo?>(null)
-    private set
-
-  fun updateVoterInfo(voterInfoToUpdate: VoterInfo?) {
-    voterInfo = voterInfoToUpdate
-  }
+  val voterInfo = mutableStateOf(
+    VoterInfo(
+      firstName = "",
+      lastName = "",
+      birthdate = LocalDate.now(),
+      zipcode = ""
+    )
+  )
 
   fun reset() {
     _registration.value = null
-    voterInfo = null
   }
 
   suspend fun checkRegistration(voterInfo: VoterInfo) {
