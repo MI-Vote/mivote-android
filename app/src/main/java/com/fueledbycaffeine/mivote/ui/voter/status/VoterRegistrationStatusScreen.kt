@@ -5,8 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.fueledbycaffeine.mivote.R
 import com.fueledbycaffeine.mivote.ui.navigation.MIVoteScreen
 import com.fueledbycaffeine.mivote.ui.voter.VoterRegistrationViewModel
 import com.fueledbycaffeine.mivote.ui.voter.status.voterinfo.VoterInputScreen
@@ -30,7 +32,7 @@ fun VoterRegistrationStatusScreen(
           voterRegistrationViewModel.checkRegistration(it)
         }
       },
-      modifier = modifier.padding(24.dp)
+      modifier = modifier.padding(dimensionResource(R.dimen.margin_large))
     )
   } else {
     VoterRegistrationStatus(

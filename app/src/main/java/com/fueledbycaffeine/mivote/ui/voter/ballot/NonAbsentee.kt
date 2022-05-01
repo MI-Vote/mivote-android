@@ -9,8 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.fueledbycaffeine.mivote.R
 import com.fueledbycaffeine.mivote.ui.PrimaryButton
 import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 
@@ -18,19 +20,19 @@ import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 fun NonAbsentee() {
   Surface(
     shape = MaterialTheme.shapes.medium,
-    elevation = 2.dp
+    elevation = dimensionResource(R.dimen.elevation_small)
   ) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
       Text(
         text = "You are not an absentee voter. Click below to view how to register for absentee voting.",
         style = MaterialTheme.typography.h1,
-        modifier = Modifier.padding(16.dp)
+        modifier = Modifier.padding(dimensionResource(R.dimen.margin_medium))
       )
       val uriHandler = LocalUriHandler.current
       PrimaryButton(
         text = "Register Absentee",
         onClick = { uriHandler.openUri("https://absentee.michiganelections.io/") },
-        modifier = Modifier.padding(8.dp)
+        modifier = Modifier.padding(dimensionResource(R.dimen.margin_small))
       )
     }
   }

@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -47,20 +48,20 @@ fun VoterInfoForm(
       name = voterInfoState.value.firstName,
       onValueChange = { voterInfoState.value = voterInfoState.value.copy(firstName = it) }
     )
-    Spacer(modifier = Modifier.height(24.dp))
+    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.margin_large)))
 
     NameField(
       hintText = R.string.last_name,
       name = voterInfoState.value.lastName,
       onValueChange = { voterInfoState.value = voterInfoState.value.copy(lastName = it) }
     )
-    Spacer(modifier = Modifier.height(24.dp))
+    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.margin_large)))
 
     BirthDateField(
       initialDate = voterInfoState.value.birthdate,
       dateChanged = { voterInfoState.value = voterInfoState.value.copy(birthdate = it)}
     )
-    Spacer(modifier = Modifier.height(24.dp))
+    Spacer(modifier = Modifier.height(dimensionResource(R.dimen.margin_large)))
 
     ZipcodeField(
       zipcode = voterInfoState.value.zipcode,
@@ -166,7 +167,7 @@ fun BirthDateField(
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun VoterInfoFormPreview() {
   MIVoteTheme {
     val voterInfo =
       remember {
@@ -175,7 +176,8 @@ fun DefaultPreview() {
             "Joshua",
             "Friend",
             LocalDate.of(1991, 4, 1),
-            "12345")
+            "12345"
+          )
         )
       }
     VoterInfoForm(voterInfo)
