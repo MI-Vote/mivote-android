@@ -21,4 +21,10 @@
     <string name="your_polling_location_is">Your polling location is:\n\n%1$s</string>
     <string name="registration_continue">Continue</string>
 
+    <!-- Ballot -->
+    <string name="not_absentee_voter">You are not an absentee voter. Click below to view how to register for absentee voting.</string>
+    <string name="register_absentee">Register Absentee</string>
+    <string name="registered_as_absentee">You are registered to vote as absentee!</string>
+    <string name="application_last_received">Application last received: %1$s</string>
+
 </resources>
