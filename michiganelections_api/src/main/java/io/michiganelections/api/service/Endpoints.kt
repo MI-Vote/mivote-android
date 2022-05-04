@@ -24,6 +24,7 @@ internal interface Endpoints {
 
   @GET("ballots")
   suspend fun getSampleBallotUrl(
-    @Path("precinct_id") precinctId: Int
+    @Query("election_id") electionId: Int? = null,
+    @Query("precinct_id") precinctId: Int? = null,
   ): SampleBallot
 }

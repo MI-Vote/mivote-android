@@ -28,7 +28,7 @@ class ApiServiceImpl @Inject constructor(
     return endpoint.registrations(firstName, lastName, birthdayStr, zipcode)
   }
 
-  override suspend fun getSampleBallot(precinctId: Int): SampleBallot {
-    return endpoint.getSampleBallotUrl(precinctId)
+  override suspend fun getSampleBallot(electionId: Int?, precinctId: Int?): SampleBallot {
+    return endpoint.getSampleBallotUrl(electionId, precinctId)
   }
 }

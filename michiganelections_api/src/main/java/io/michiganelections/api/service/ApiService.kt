@@ -16,5 +16,5 @@ interface ApiService {
     zipcode: String
   ): VoterRegistration
 
-  suspend fun getSampleBallot(precinctId: Int): SampleBallot
+  suspend fun getSampleBallot(electionId: Int? = null, precinctId: Int? = null): SampleBallot
 }
