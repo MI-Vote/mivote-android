@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.fueledbycaffeine.mivote.data.VoterDataStore
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.michiganelections.api.model.SampleBallot
+import io.michiganelections.api.model.Ballot
 import io.michiganelections.api.model.VoterRegistration
 import io.michiganelections.api.service.ApiService
 import timber.log.Timber
@@ -52,7 +52,7 @@ class VoterRegistrationViewModel @Inject constructor(
     }
   }
 
-  suspend fun getSampleBallot(electionId: Int, precinctId: Int): SampleBallot {
-    return api.getSampleBallot(electionId = electionId, precinctId = precinctId)
+  suspend fun getSampleBallot(electionId: Int, precinctId: Int): Ballot {
+    return api.getBallots(electionId = electionId, precinctId = precinctId).results.first()
   }
 }

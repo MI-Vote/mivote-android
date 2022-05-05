@@ -1,19 +1,16 @@
 package io.michiganelections.api.model
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @JsonClass(generateAdapter = true)
-data class SampleBallot(
-  @Json(name = "id")
+data class Ballot(
   val id: Int,
-
-  @Json(name = "precinct")
-  val precinct: Precinct,
-
-  @Json(name = "election")
-  val election: Election,
-
   @Json(name = "mvic_url")
-  val ballotUrl: String
-)
+  val mvicUrl: String,
+  val election: Election,
+  val precinct: Precinct
+): Parcelable

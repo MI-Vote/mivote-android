@@ -65,7 +65,7 @@ fun PreviewRegisteredStatus() {
         dropboxLocations = null,
         recentlyMoved = false,
         precinct = null,
-        districts = null,
+        districts = emptyList(),
       )
     )
   }

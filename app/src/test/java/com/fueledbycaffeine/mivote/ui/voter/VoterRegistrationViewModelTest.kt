@@ -3,14 +3,14 @@ package com.fueledbycaffeine.mivote.ui.voter
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.fueledbycaffeine.mivote.data.VoterDataStore
 import com.fueledbycaffeine.mivote.data.VoterInfo
-import io.michiganelections.api.model.SampleBallot
+import io.michiganelections.api.model.Ballot
+import io.michiganelections.api.model.ResultPage
 import io.michiganelections.api.model.VoterRegistration
 import io.michiganelections.api.service.ApiService
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -76,13 +76,15 @@ class VoterRegistrationViewModelTest {
   fun testGetSampleBallot() = runTest {
     val electionId = 1
     val precinctId = 1
-    val expected = mockk<SampleBallot>()
+    val ballot = mockk<Ballot>()
+    val ballotsPage = mockk<ResultPage<Ballot>>()
+    every { ballotsPage.results } returns listOf(ballot)
 
-    coEvery { mockApiService.getSampleBallot(electionId, precinctId) } returns expected
+    coEvery { mockApiService.getBallots(electionId, precinctId) } returns ballotsPage
 
     val actual = viewModel.getSampleBallot(electionId, precinctId)
-    Assert.assertEquals(expected, actual)
+    Assert.assertEquals(ballot, actual)
 
-    coVerify { mockApiService.getSampleBallot(electionId, precinctId) }
+    coVerify { mockApiService.getBallots(electionId, precinctId) }
   }
 }

@@ -12,24 +12,26 @@ buildscript {
         version_patch = 1
         version_name = "$version_major.$version_minor.$version_patch"
 
-        activity_compose_version = '1.6.0-alpha05'
+        activity_compose_version = '1.6.0'
         app_compat_version = '1.4.1'
-        compose_version = '1.1.1'
-        compose_navigation_version = "2.5.0-rc02"
-        core_ktx_version = '1.7.0'
-        detekt_version = '1.15.0-RC1'
-        kotlin_version = '1.6.10'
+        compose_version = '1.2.1'
+        compose_navigation_version = "2.5.2"
+        core_ktx_version = '1.9.0'
+        detekt_version = '1.17.0'
+        kotlin_version = '1.7.10'
         kotlin_coroutines_version = '1.5.1'
-        hilt_version = "2.42"
+        hilt_version = "2.44"
         hilt_navigation_version = "1.0.0"
+        hilt_work_version = "1.0.0"
         lifecycle_version = '2.4.1'
         material_version = '1.5.0'
         mockk_version = "1.12.0"
         moshi_version = '1.13.0'
-        okhttp_version = '4.9.0'
+        okhttp_version = '4.10.0'
         retrofit_version = '2.9.0'
-        room_version = "2.3.0"
-        timber_version = "4.7.1"
+        room_version = "2.4.3"
+        timber_version = "5.0.1"
+        work_version = "2.7.1"
 
         deps = [
             'androidX': [
@@ -39,17 +41,20 @@ buildscript {
                     'navigation': "androidx.navigation:navigation-compose:$compose_navigation_version",
                     'runtimeLivedata': "androidx.compose.runtime:runtime-livedata:$compose_version",
                     'ui': "androidx.compose.ui:ui:$compose_version",
-                    'uiTooling': "androidx.compose.ui:ui-tooling:1.0.0-beta09",
+                    'uiTooling': "androidx.compose.ui:ui-tooling:$compose_version",
                 ],
                 'coreKtx': "androidx.core:core-ktx:$core_ktx_version",
                 'appcompat': "androidx.appcompat:appcompat:$app_compat_version",
-                'material': "com.google.android.material:material:$material_version"
+                'material': "com.google.android.material:material:$material_version",
+                'work': "androidx.work:work-runtime-ktx:$work_version",
             ],
             'desugar': 'com.android.tools:desugar_jdk_libs:1.1.5', // https://developer.android.com/studio/write/java8-support
             'hilt': [
                 'core': "com.google.dagger:hilt-android:$hilt_version",
                 'compiler': "com.google.dagger:hilt-compiler:$hilt_version",
-                'navigation': "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version"
+                'navigation': "androidx.hilt:hilt-navigation-compose:$hilt_navigation_version",
+                'work': "androidx.hilt:hilt-work:$hilt_work_version",
+                'workCompiler': "androidx.hilt:hilt-compiler:$hilt_work_version",
             ],
             'lifecycle': [
                 'livedataKtx': "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
@@ -105,9 +110,9 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.0'
+        classpath 'com.android.tools.build:gradle:7.3.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.42'
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.44'
 
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detekt_version"
 
@@ -152,7 +157,7 @@ subprojects {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 

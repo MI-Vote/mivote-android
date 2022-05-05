@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.michiganelections.api.service.ApiService
 import io.michiganelections.api.service.ApiServiceImpl
+import io.michiganelections.api.service.LocalDateAdapter
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -28,6 +29,7 @@ class ApiModule {
   @Provides
   fun provideMoshi(): Moshi {
     return Moshi.Builder()
+      .add(LocalDateAdapter())
       .build()
   }
 

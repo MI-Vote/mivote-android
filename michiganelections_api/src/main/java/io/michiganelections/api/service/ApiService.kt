@@ -1,8 +1,8 @@
 package io.michiganelections.api.service
 
+import io.michiganelections.api.model.Ballot
 import io.michiganelections.api.model.Election
 import io.michiganelections.api.model.ResultPage
-import io.michiganelections.api.model.SampleBallot
 import io.michiganelections.api.model.VoterRegistration
 import java.time.LocalDate
 
@@ -16,5 +16,8 @@ interface ApiService {
     zipcode: String
   ): VoterRegistration
 
-  suspend fun getSampleBallot(electionId: Int? = null, precinctId: Int? = null): SampleBallot
+  suspend fun getBallots(
+    electionId: Int,
+    precinctId: Int
+  ): ResultPage<Ballot>
 }

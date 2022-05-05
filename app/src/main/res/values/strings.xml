@@ -26,5 +26,8 @@
     <string name="register_absentee">Register Absentee</string>
     <string name="registered_as_absentee">You are registered to vote as absentee!</string>
     <string name="application_last_received">Application last received: %1$s</string>
+    <string name="view_sample_ballot">View Sample Ballot</string>
+    <string name="ballot_sent_by_clerk">Ballot was mailed by your clerk on %1$s</string>
+    <string name="ballot_received_by_clerk">Ballot was received by your clerk on %1$s</string>
 
 </resources>
