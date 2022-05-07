@@ -52,7 +52,7 @@ class VoterRegistrationViewModel @Inject constructor(
     }
   }
 
-  suspend fun getSampleBallot(precinctId: Int): SampleBallot {
-    return api.getSampleBallot(precinctId = precinctId)
+  suspend fun getSampleBallot(electionId: Int, precinctId: Int): SampleBallot {
+    return api.getSampleBallot(electionId = electionId, precinctId = precinctId)
   }
 }

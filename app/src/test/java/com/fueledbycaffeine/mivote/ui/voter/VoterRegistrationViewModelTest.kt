@@ -8,7 +8,9 @@ import io.michiganelections.api.model.VoterRegistration
 import io.michiganelections.api.service.ApiService
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert
@@ -29,7 +31,12 @@ class VoterRegistrationViewModelTest {
   @Before
   fun setup() {
     mockApiService = mockk()
-    mockVoterDataStore = mockk()
+    mockVoterDataStore = mockk(relaxed = true)
+//    val expectedVoterInfoFromStore = mockk<VoterInfo>()
+//    every {
+//      mockVoterDataStore.voterInfo
+//    } returns expectedVoterInfoFromStore
+
     viewModel = VoterRegistrationViewModel(
       api = mockApiService,
       dataStore = mockVoterDataStore
@@ -42,6 +49,13 @@ class VoterRegistrationViewModelTest {
     val lastName = "Doe"
     val birthdate = LocalDate.now()
     val zipcode = "12345"
+    val voterInfo = VoterInfo(
+      firstName = firstName,
+      lastName = lastName,
+      birthdate = birthdate,
+      zipcode = zipcode
+    )
+
     val expectedResult = mockk<VoterRegistration>()
 
     coEvery {
@@ -53,45 +67,22 @@ class VoterRegistrationViewModelTest {
       )
     } returns expectedResult
 
-    // TODO: update test here to reconsider the need for LiveData
-//    evaluateLiveDataSequence(
-//      liveData = viewModel.registration,
-//      evaluators = listOf { registration ->
-//        Assert.assertEquals(expectedResult, registration)
-//      },
-//      block = {
-//        val voterInfo = VoterInfo(
-//          firstName = firstName,
-//          lastName = lastName,
-//          birthdate = birthdate,
-//          zipcode = zipcode
-//        )
-//        viewModel.checkRegistration(voterInfo)
-//        Assert.assertEquals(expectedResult, viewModel.registration.value)
-//      }
-//    )
-    val voterInfo = VoterInfo(
-      firstName = firstName,
-      lastName = lastName,
-      birthdate = birthdate,
-      zipcode = zipcode
-    )
     viewModel.checkRegistration(voterInfo)
     Assert.assertEquals(expectedResult, viewModel.registration.value)
-
     coVerify { mockApiService.getVoter(firstName, lastName, birthdate, zipcode) }
   }
 
   @Test
   fun testGetSampleBallot() = runTest {
+    val electionId = 1
     val precinctId = 1
     val expected = mockk<SampleBallot>()
 
-    coEvery { mockApiService.getSampleBallot(precinctId) } returns expected
+    coEvery { mockApiService.getSampleBallot(electionId, precinctId) } returns expected
 
-    val actual = viewModel.getSampleBallot(precinctId)
+    val actual = viewModel.getSampleBallot(electionId, precinctId)
     Assert.assertEquals(expected, actual)
 
-    coVerify { mockApiService.getSampleBallot(precinctId) }
+    coVerify { mockApiService.getSampleBallot(electionId, precinctId) }
   }
 }
