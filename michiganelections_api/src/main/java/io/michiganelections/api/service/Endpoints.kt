@@ -10,7 +10,9 @@ import retrofit2.http.Query
 internal interface Endpoints {
   @GET("elections")
   suspend fun elections(
-    @Query("active") isActive: Boolean = true
+    @Query("active") isActive: Boolean = true,
+    @Query("limit") limit: Int = 25,
+    @Query("offset") offset: Int = 0,
   ): ResultPage<Election>
 
   @GET("registrations")

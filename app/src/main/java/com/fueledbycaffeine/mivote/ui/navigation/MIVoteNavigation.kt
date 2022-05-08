@@ -28,6 +28,7 @@ import androidx.navigation.compose.rememberNavController
 import com.fueledbycaffeine.mivote.R
 import com.fueledbycaffeine.mivote.ui.voter.VoterRegistrationViewModel
 import com.fueledbycaffeine.mivote.ui.voter.ballot.BallotStatusScreen
+import com.fueledbycaffeine.mivote.ui.voter.elections.ElectionScreen
 import com.fueledbycaffeine.mivote.ui.voter.registration.VoterRegistrationRegistered
 import com.fueledbycaffeine.mivote.ui.voter.registrationinput.VoterRegistrationInputScreen
 
@@ -37,7 +38,8 @@ fun MIVoteNavigation(
   val navController = rememberNavController()
   val items = listOf(
     MIVoteScreen.Home.RegistrationInfo,
-    MIVoteScreen.Home.BallotStatus
+    MIVoteScreen.Home.BallotStatus,
+    MIVoteScreen.Home.Elections
   )
   val voterRegistrationViewModel: VoterRegistrationViewModel = viewModel()
   NavHost(navController, startDestination = MIVoteScreen.RegistrationInput.route) {
@@ -87,6 +89,7 @@ fun MIVoteNavigation(
                   .fillMaxSize()
                   .padding(dimensionResource(id = R.dimen.standard_padding))
               )
+            2 -> ElectionScreen()
           }
         }
       }

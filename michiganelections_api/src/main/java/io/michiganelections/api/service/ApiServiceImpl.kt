@@ -14,8 +14,11 @@ class ApiServiceImpl @Inject constructor(
 ) : ApiService {
   private val endpoint = retrofit.create(Endpoints::class.java)
 
-  override suspend fun getElections(): ResultPage<Election> {
-    return endpoint.elections()
+  override suspend fun getElections(
+    isActive: Boolean,
+    limit: Int,
+    offset: Int): ResultPage<Election> {
+    return endpoint.elections(isActive, limit, offset)
   }
 
   override suspend fun getVoter(
