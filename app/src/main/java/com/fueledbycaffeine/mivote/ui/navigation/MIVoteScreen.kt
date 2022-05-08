@@ -8,15 +8,27 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import com.fueledbycaffeine.mivote.R
 
 open class MIVoteScreen(val route: String, @StringRes val resourceId: Int, val icon: ImageVector) {
-  object VoterRegistration : MIVoteScreen(
+  object RegistrationInput : MIVoteScreen(
     "VoterRegistration",
     R.string.voter_registration,
     Icons.Filled.AccountCircle
   )
 
-  object BallotStatus : MIVoteScreen(
-    "BallotStatus",
-    R.string.ballot_status,
-    Icons.Filled.Email
-  )
+  object Home : MIVoteScreen(
+    "Home",
+    R.string.voter_registration,
+    Icons.Filled.AccountCircle
+  ) {
+    object RegistrationInfo : MIVoteScreen(
+      "RegistrationInfo",
+      R.string.voter_registration,
+      Icons.Filled.AccountCircle
+    )
+
+    object BallotStatus : MIVoteScreen(
+      "BallotStatus",
+      R.string.ballot_status,
+      Icons.Filled.Email
+    )
+  }
 }

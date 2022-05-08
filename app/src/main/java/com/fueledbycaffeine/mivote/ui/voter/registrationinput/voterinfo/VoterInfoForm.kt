@@ -1,4 +1,4 @@
-package com.fueledbycaffeine.mivote.ui.voter.status.voterinfo
+package com.fueledbycaffeine.mivote.ui.voter.registrationinput.voterinfo
 
 import android.app.DatePickerDialog
 import androidx.annotation.StringRes
@@ -58,7 +58,7 @@ fun VoterInfoForm(
 
     BirthDateField(
       initialDate = voterInfoState.value.birthdate,
-      dateChanged = { voterInfoState.value = voterInfoState.value.copy(birthdate = it)}
+      dateChanged = { voterInfoState.value = voterInfoState.value.copy(birthdate = it) }
     )
     Spacer(modifier = Modifier.height(dimensionResource(R.dimen.margin_large)))
 

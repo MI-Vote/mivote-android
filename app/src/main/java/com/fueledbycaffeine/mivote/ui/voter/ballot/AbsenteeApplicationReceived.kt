@@ -1,13 +1,9 @@
 package com.fueledbycaffeine.mivote.ui.voter.ballot
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.fueledbycaffeine.mivote.R
@@ -16,19 +12,18 @@ import io.michiganelections.api.model.VoterRegistration
 
 @Composable
 fun AbsenteeApplicationReceived(registration: VoterRegistration) {
-  Card {
-    Column {
-      Text(
-        text = stringResource(R.string.registered_as_absentee),
-        style = MaterialTheme.typography.h1,
-        modifier = Modifier.padding(dimensionResource(R.dimen.margin_medium))
-      )
-      Text(
-        text = stringResource(R.string.application_last_received, registration.absenteeApplicationReceived ?: "N/A"),
-        style = MaterialTheme.typography.h1,
-        modifier = Modifier.padding(dimensionResource(R.dimen.margin_medium))
-      )
-    }
+  Column {
+    Text(
+      text = stringResource(R.string.registered_as_absentee),
+      style = MaterialTheme.typography.h1,
+    )
+    Text(
+      text = stringResource(
+        R.string.application_last_received,
+        registration.absenteeApplicationReceived ?: "N/A"
+      ),
+      style = MaterialTheme.typography.h2,
+    )
   }
 }
 

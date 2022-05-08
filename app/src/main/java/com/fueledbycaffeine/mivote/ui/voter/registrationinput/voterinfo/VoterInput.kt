@@ -1,4 +1,4 @@
-package com.fueledbycaffeine.mivote.ui.voter.status.voterinfo
+package com.fueledbycaffeine.mivote.ui.voter.registrationinput.voterinfo
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +20,7 @@ import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 import java.time.LocalDate
 
 @Composable
-fun VoterInputScreen(
+fun VoterInput(
   voterInfo: MutableState<VoterInfo>,
   modifier: Modifier = Modifier,
   checkRegistration: (voterInfo: VoterInfo) -> Unit,
@@ -46,11 +46,15 @@ fun VoterInputScreen(
 @Composable
 fun VoterInputScreenPreview() {
   val voterInfo = remember {
-    mutableStateOf(VoterInfo("Joshua", "Friend",
-      LocalDate.of(1991, 4, 1), "12345"))
+    mutableStateOf(
+      VoterInfo(
+        "Joshua", "Friend",
+        LocalDate.of(1991, 4, 1), "12345"
+      )
+    )
   }
   MIVoteTheme {
-    VoterInputScreen(
+    VoterInput(
       voterInfo,
       checkRegistration = {}
     )

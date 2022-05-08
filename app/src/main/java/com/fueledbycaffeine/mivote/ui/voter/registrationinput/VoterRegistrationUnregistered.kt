@@ -1,8 +1,7 @@
-package com.fueledbycaffeine.mivote.ui.voter.status
+package com.fueledbycaffeine.mivote.ui.voter.registrationinput
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -17,7 +16,6 @@ import com.fueledbycaffeine.mivote.data.VoterInfo
 import com.fueledbycaffeine.mivote.ui.OutlinedButton
 import com.fueledbycaffeine.mivote.ui.PrimaryButton
 import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
-import io.michiganelections.api.model.VoterRegistration
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -25,14 +23,13 @@ import java.time.format.FormatStyle
 @Composable
 fun VoterRegistrationUnregistered(
   voterInfo: VoterInfo,
+  modifier: Modifier = Modifier,
   onTryAgain: () -> Unit
 ) {
   val uriHandler = LocalUriHandler.current
 
   Column(
-    modifier = Modifier
-      .fillMaxSize()
-      .padding(dimensionResource(id = R.dimen.standard_padding)),
+    modifier = modifier,
     verticalArrangement = Arrangement.Center
   ) {
     Text(
@@ -73,27 +70,13 @@ fun VoterRegistrationUnregistered(
 @Composable
 fun PreviewUnregisteredStatus() {
   MIVoteTheme {
-    VoterRegistrationStatus(
+    VoterRegistrationUnregistered(
       VoterInfo(
         firstName = "John",
         lastName = "Doe",
         birthdate = LocalDate.of(1900, 1, 1),
         zipcode = "12345"
       ),
-      VoterRegistration(
-        registered = false,
-        ballot = true,
-        absentee = false,
-        absenteeApplicationReceived = null,
-        absenteeBallotSent = null,
-        absenteeBallotReceived = null,
-        pollingLocation = null,
-        dropboxLocations = null,
-        recentlyMoved = false,
-        precinct = null,
-        districts = null,
-      ),
-      onContinue = {},
       onTryAgain = {}
     )
   }
