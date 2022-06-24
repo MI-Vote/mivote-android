@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 
 @Composable
 fun PrimaryButton(
@@ -54,9 +55,11 @@ fun OutlinedButton(
 @Preview
 @Composable
 fun PreviewButtons() {
-  Column {
-    PrimaryButton(text = "Primary Button", onClick = {})
-    Spacer(modifier = Modifier.height(8.dp))
-    OutlinedButton(text = "Outlined Button", onClick = {})
+  MIVoteTheme {
+    Column {
+      PrimaryButton(text = "Primary Button", onClick = {})
+      Spacer(modifier = Modifier.height(8.dp))
+      OutlinedButton(text = "Outlined Button", onClick = {})
+    }
   }
 }

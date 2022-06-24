@@ -1,15 +1,30 @@
 <resources>
     <string name="app_name">MI Vote</string>
+    <string name="zipcode">Zipcode</string>
+    <string name="invalid_zipcode">Invalid Zipcode</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="birthdate">Birth date</string>
+    <string name="check_registration">Check Registration</string>
 
     <!--Routes/Names for Navigation-->
+    <string name="voter_input">Voter Input</string>
     <string name="voter_registration">Registration</string>
+    <string name="ballot_status">Ballot Status</string>
 
     <string name="registration_not_found">We couldn\'t find your registration.</string>
     <string name="registration_verify_info">Make sure you\'ve entered your information correctly. If everything looks correct, go ahead and register to vote!</string>
     <string name="registration_voter_info">%1$s %2$s\n%3$s\n%4$s</string>
     <string name="register_to_vote">Register to Vote</string>
     <string name="try_again">Try Again</string>
-    <string name="already_registered">Awesome! You are registered to vote!</string>
+    <string name="already_registered">You are registered to vote!</string>
+    <string name="your_polling_location_is">Your polling location is:\n\n%1$s</string>
     <string name="registration_continue">Continue</string>
+
+    <!-- Ballot -->
+    <string name="not_absentee_voter">You are not an absentee voter. Click below to view how to register for absentee voting.</string>
+    <string name="register_absentee">Register Absentee</string>
+    <string name="registered_as_absentee">You are registered to vote as absentee!</string>
+    <string name="application_last_received">Application last received: %1$s</string>
 
 </resources>

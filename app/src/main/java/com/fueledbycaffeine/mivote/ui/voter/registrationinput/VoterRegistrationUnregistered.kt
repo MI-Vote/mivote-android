@@ -1,35 +1,35 @@
-package com.fueledbycaffeine.mivote.ui.voter.status
+package com.fueledbycaffeine.mivote.ui.voter.registrationinput
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.MutableLiveData
 import com.fueledbycaffeine.mivote.R
 import com.fueledbycaffeine.mivote.data.VoterInfo
 import com.fueledbycaffeine.mivote.ui.OutlinedButton
 import com.fueledbycaffeine.mivote.ui.PrimaryButton
-import io.michiganelections.api.model.VoterRegistration
+import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 @Composable
 fun VoterRegistrationUnregistered(
-  voterInfo: VoterInfo
+  voterInfo: VoterInfo,
+  modifier: Modifier = Modifier,
+  onTryAgain: () -> Unit
 ) {
+  val uriHandler = LocalUriHandler.current
+
   Column(
-    modifier = Modifier
-      .fillMaxSize()
-      .padding(dimensionResource(id = R.dimen.standard_padding)),
+    modifier = modifier,
     verticalArrangement = Arrangement.Center
   ) {
     Text(
@@ -56,12 +56,12 @@ fun VoterRegistrationUnregistered(
     PrimaryButton(
       modifier = Modifier.padding(top = dimensionResource(id = R.dimen.margin_large)),
       text = stringResource(id = R.string.register_to_vote),
-      onClick = {}
+      onClick = { uriHandler.openUri("https://mvic.sos.state.mi.us/registervoter") },
     )
     OutlinedButton(
       modifier = Modifier.padding(top = dimensionResource(id = R.dimen.margin_small)),
       text = stringResource(id = R.string.try_again),
-      onClick = {},
+      onClick = onTryAgain,
     )
   }
 }
@@ -69,27 +69,16 @@ fun VoterRegistrationUnregistered(
 @Preview(showBackground = true)
 @Composable
 fun PreviewUnregisteredStatus() {
-  VoterRegistrationStatus(
-    VoterInfo(
-      firstName = "John",
-      lastName = "Doe",
-      birthdate = LocalDate.of(1900, 1, 1),
-      zipcode = "12345"
-    ),
-    MutableLiveData(
-      VoterRegistration(
-        registered = false,
-        absentee = false,
-        absenteeApplicationReceived = null,
-        absenteeBallotSent = null,
-        absenteeBallotRecieved = null,
-        pollingLocation = null,
-        dropboxLocation = null,
-        recentlyMoved = false,
-        precinct = null,
-        districts = null,
-      )
-    ).observeAsState()
-  )
+  MIVoteTheme {
+    VoterRegistrationUnregistered(
+      VoterInfo(
+        firstName = "John",
+        lastName = "Doe",
+        birthdate = LocalDate.of(1900, 1, 1),
+        zipcode = "12345"
+      ),
+      onTryAgain = {}
+    )
+  }
 }
 
