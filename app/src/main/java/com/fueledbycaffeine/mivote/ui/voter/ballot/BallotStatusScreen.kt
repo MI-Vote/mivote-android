@@ -8,6 +8,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.fueledbycaffeine.mivote.ui.core.LoadingIndicator
 import com.fueledbycaffeine.mivote.ui.theme.MIVoteTheme
 import io.michiganelections.api.model.VoterRegistration
+import io.michiganelections.api.model.VoterRegistration.AbsenteeProcessState.*
+import java.time.LocalDate
 
 @Composable
 fun BallotStatusScreen(
@@ -21,10 +23,11 @@ fun BallotStatusScreen(
     when (registration) {
       null -> LoadingIndicator()
       else -> {
-        when (registration.absentee) {
-          true -> AbsenteeApplicationReceived(registration)
-          false -> NonAbsentee()
-          else -> {}
+        when (registration.absenteeProcessState) {
+          NOT_STARTED -> NonAbsentee()
+          REQUESTED_BALLOT -> AbsenteeApplicationReceived(registration)
+          BALLOT_SENT_BY_CLERK -> AbsenteeBallotSentByClerk(registration)
+          BALLOT_RECEIVED_BY_CLERK -> AbsenteeBallotReceivedByClerk(registration)
         }
       }
     }
@@ -33,7 +36,7 @@ fun BallotStatusScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewBallotStatusScreen() {
+fun PreviewAbsenteeBallotStatus() {
   MIVoteTheme {
     BallotStatusScreen(
       registration =
@@ -41,16 +44,15 @@ fun PreviewBallotStatusScreen() {
         registered = true,
         ballot = true,
         absentee = true,
-        absenteeApplicationReceived = null,
-        absenteeBallotSent = null,
-        absenteeBallotReceived = null,
+        absenteeApplicationReceived = LocalDate.now(),
+        absenteeBallotSent = LocalDate.now(),
+        absenteeBallotReceived = LocalDate.now(),
         pollingLocation = null,
         dropboxLocations = null,
         recentlyMoved = false,
         precinct = null,
-        districts = null,
+        districts = emptyList(),
       )
-
     )
   }
 }

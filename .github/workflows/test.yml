@@ -21,7 +21,4 @@ jobs:
           java-version: "11"
 
       - name: Run Tests
-        run: ./gradlew jacocoTestReportDebug
-
-      - name: Generate Report
-        run: ./gradlew jacocoTestReportMerged
+        run: ./gradlew jacocoTestReportDebug -i

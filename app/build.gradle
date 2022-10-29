@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'org.jetbrains.kotlin.kapt'
     id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -33,14 +34,14 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
     }
     buildFeatures {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion compose_version
+        kotlinCompilerExtensionVersion '1.3.1'
     }
+    namespace 'com.fueledbycaffeine.mivote'
 }
 
 dependencies {
@@ -49,6 +50,8 @@ dependencies {
     implementation deps.hilt.core
     kapt deps.hilt.compiler
     implementation deps.hilt.navigation
+    implementation deps.hilt.work
+    kapt deps.hilt.workCompiler
 
     implementation deps.lifecycle.livedataKtx
     implementation deps.lifecycle.runtimeKtx
@@ -57,6 +60,7 @@ dependencies {
     implementation deps.androidX.coreKtx
     implementation deps.androidX.appcompat
     implementation deps.androidX.material
+    implementation deps.androidX.work
 
     implementation deps.androidX.compose.activity
     implementation deps.androidX.compose.material

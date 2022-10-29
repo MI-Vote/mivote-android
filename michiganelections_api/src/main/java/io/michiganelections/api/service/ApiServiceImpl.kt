@@ -1,8 +1,9 @@
 package io.michiganelections.api.service
 
+import android.annotation.SuppressLint
+import io.michiganelections.api.model.Ballot
 import io.michiganelections.api.model.Election
 import io.michiganelections.api.model.ResultPage
-import io.michiganelections.api.model.SampleBallot
 import io.michiganelections.api.model.VoterRegistration
 import retrofit2.Retrofit
 import java.time.LocalDate
@@ -18,6 +19,7 @@ class ApiServiceImpl @Inject constructor(
     return endpoint.elections()
   }
 
+  @SuppressLint("NewApi") // desugared java.time false positive
   override suspend fun getVoter(
     firstName: String,
     lastName: String,
@@ -28,7 +30,7 @@ class ApiServiceImpl @Inject constructor(
     return endpoint.registrations(firstName, lastName, birthdayStr, zipcode)
   }
 
-  override suspend fun getSampleBallot(electionId: Int?, precinctId: Int?): SampleBallot {
-    return endpoint.getSampleBallotUrl(electionId, precinctId)
+  override suspend fun getBallots(electionId: Int, precinctId: Int): ResultPage<Ballot> {
+    return endpoint.ballots(electionId, precinctId)
   }
 }

@@ -4,7 +4,6 @@ import com.squareup.moshi.Moshi
 import io.michiganelections.api.service.ApiServiceImpl
 import io.mockk.mockk
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

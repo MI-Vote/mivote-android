@@ -81,4 +81,3 @@ fun PreviewUnregisteredStatus() {
     )
   }
 }
-
